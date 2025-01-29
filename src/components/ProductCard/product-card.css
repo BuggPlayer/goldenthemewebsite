@@ -1,0 +1,126 @@
+.product {
+    background: var(--primary-bg); /* Dark gray background */
+    padding: 20px;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0px 1px 3px rgba(255, 215, 0, 0.2); /* Subtle gold shadow */
+    margin: 10px;
+    transition: transform 0.3s ease-in-out;
+    border: 2px solid var(--border-color); /* Gold border */
+}
+
+.product:hover {
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+.product img {
+    width: 100%;
+    height: 200px !important;
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.product:hover img {
+    transform: scale(1.08);
+}
+
+.discount {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--highlight-color); /* Darker gold */
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 50px;
+    color: #000; /* Black text for contrast */
+    margin: 10px;
+}
+
+.product h3 {
+    margin: 10px 0;
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--text-color); /* Gold text */
+    cursor: pointer;
+}
+
+.product .rate i {
+    font-size: 15px;
+    color: var(--highlight-color); /* Darker gold stars */
+    margin: 5px 5px 5px 0;
+}
+
+.product .price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-color); /* Gold price text */
+}
+
+.price h4 {
+    margin: 20px 0 10px;
+}
+
+.price button {
+    background: none;
+    color: var(--text-color); /* Gold text */
+    font-size: 20px;
+    transition: 0.5s;
+    border: 2px solid var(--border-color); /* Gold border */
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+}
+
+.price button:hover {
+    cursor: pointer;
+    background-color: var(--text-color); /* Gold background */
+    color: #000; /* Black text */
+}
+
+button.add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    border-radius: 50%;
+    background: var(--text-color); /* Gold button */
+    color: #000; /* Black text */
+    transition: 0.3s ease-in-out;
+}
+
+button.add:hover {
+    background: var(--highlight-color); /* Darker gold */
+    color: #000;
+}
+
+.product-like {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.product-like label {
+    background-color: var(--highlight-color); /* Darker gold */
+    padding: 3px 12px;
+    font-size: 12px;
+    color: black;
+    font-weight: bold;
+    border-radius: 50px;
+}
+
+.product-like ion-icon {
+    font-size: 20px;
+    margin: 10px 3px;
+    cursor: pointer;
+    color: var(--text-color); /* Gold */
+}
+
+.product:hover .product-like {
+    opacity: 1;
+}

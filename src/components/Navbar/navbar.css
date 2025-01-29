@@ -1,0 +1,154 @@
+/* Navbar Section */
+.navbar {
+  position: relative !important;
+  background-color: var(--primary-bg); /* Black background */
+  transition: all 0.3s ease-out !important;
+  box-shadow: 0px 10px 10px 0px rgba(255, 215, 0, 0.1) !important; /* Gold shadow */
+  font-size: 1.2rem !important;
+  border-bottom: 2px solid var(--border-color); /* Gold bottom border */
+}
+
+.navbar.fixed {
+  position: fixed !important;
+  width: 100vw;
+  left: 0;
+  top: 0;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between !important;
+}
+
+.navbar-toggler {
+  position: relative !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+.navbar-toggler span {
+  display: block !important;
+  background-color: var(--border-color); /* Gold menu icon */
+  height: 4px !important;
+  width: 27px !important;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+  transition: all 0.3s ease-in-out !important;
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(1) {
+  transform: rotate(135deg) !important;
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(3) {
+  transform: rotate(-135deg) !important;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.navbar-brand ion-icon {
+  font-size: 25px;
+  color: var(--border-color); /* Gold icon */
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 500;
+  color: var(--text-color); /* Gold text */
+  margin: 0;
+}
+
+.navbar-link {
+  display: flex !important;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px !important;
+  padding: 0.8rem 0.5rem 0.2rem !important;
+}
+
+.nav-link-label {
+  color: var(--text-color); /* Gold text */
+  font-size: 18px !important;
+  font-weight: 600;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-link-label:hover {
+  color: var(--highlight-color); /* Darker gold on hover */
+}
+
+.navbar-nav .nav-item {
+  padding-bottom: 3px !important;
+  margin: 0 1rem;
+  font-weight: 400;
+  transition: all 0.3s ease-out;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 10px;
+}
+
+.navbar-nav .nav-item:hover {
+  color: var(--highlight-color); /* Darker gold on hover */
+}
+
+.nav-icon {
+  width: 30px;
+  height: 30px;
+  padding-bottom: 5px;
+}
+
+.cart {
+  position: relative !important;
+  z-index: 3;
+}
+
+.cart::before {
+  content: attr(data-num);
+  position: absolute;
+  right: 0;
+  top: -5px;
+  background-color: var(--border-color); /* Gold badge */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  font-size: 11px;
+  font-weight: 600;
+  color: black; /* Black text for contrast */
+}
+
+@media (max-width: 767px) {
+  .navbar {
+    font-size: 1.4rem !important;
+  }
+
+  .navbar-toggler span {
+    width: 25px !important;
+    height: 3px !important;
+  }
+
+  ion-icon {
+    font-size: 20px;
+    color: var(--border-color); /* Gold icon */
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .media-cart {
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+  }
+}

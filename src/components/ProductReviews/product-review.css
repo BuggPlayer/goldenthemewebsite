@@ -1,0 +1,58 @@
+.product-reviews ul {
+  padding: 0;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.product-reviews li {
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--text-color); /* Gold text */
+  transition: color 0.3s ease;
+}
+
+.product-reviews li:hover {
+  color: var(--highlight-color); /* Darker gold on hover */
+}
+
+.product-reviews .rates {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.product-reviews .rates .rate-comment {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: var(--text-color); /* Gold text */
+}
+
+.product-reviews .rates .rate-comment span:nth-of-type(2) {
+  color: #ffcd4e; /* Gold for rating value */
+  font-weight: 500;
+}
+
+.product-reviews .rates .rate-comment span {
+  color: var(--text-color); /* Gold text for general comments */
+}
+
+.product-reviews .rates .rate-comment span:hover {
+  color: var(--highlight-color); /* Darker gold on hover */
+}
+
+/* Add a border around review sections for more structure */
+.product-reviews {
+  border: 2px solid var(--border-color); /* Gold border */
+  padding: 20px;
+  background-color: var(--secondary-bg); /* Dark gray background */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.product-reviews .rates {
+  border-top: 2px solid var(--border-color); /* Gold border for rate section */
+  padding-top: 10px;
+}
