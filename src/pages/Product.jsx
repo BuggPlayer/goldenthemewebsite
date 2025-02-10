@@ -44,11 +44,11 @@ const Product = () => {
       {/* Dettagli del prodotto selezionato */}
       <ProductDetails selectedProduct={selectedProduct} />
       {/* Recensioni del prodotto selezionato */}
-      <ProductReviews selectedProduct={selectedProduct} />
+      {/* <ProductReviews selectedProduct={selectedProduct} /> */}
       {/* Sezione per i prodotti correlati */}
       <section className="related-products">
         <Container>
-          <h3>You might also like</h3> {/* Titolo della sezione */}
+          <h3 style={{ color:"white"}}>You might also like</h3> {/* Titolo della sezione */}
         </Container>
         {/* Lista dei prodotti correlati */}
         <ShopList productItems={relatedProducts} />

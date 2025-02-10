@@ -6,7 +6,7 @@
     box-shadow: 0px 1px 3px rgba(255, 215, 0, 0.2); /* Subtle gold shadow */
     margin: 10px;
     transition: transform 0.3s ease-in-out;
-    border: 2px solid var(--border-color); /* Gold border */
+    border: .1px solid var(--border-color); /* Gold border */
 }
 
 .product:hover {
@@ -42,13 +42,13 @@
     margin: 10px 0;
     font-weight: 600;
     font-size: 17px;
-    color: var(--text-color); /* Gold text */
+    color: var(--text-color-secondary); /* Gold text */
     cursor: pointer;
 }
 
 .product .rate i {
     font-size: 15px;
-    color: var(--highlight-color); /* Darker gold stars */
+    color: var(--text-color-secondary); /* Gold text */
     margin: 5px 5px 5px 0;
 }
 
@@ -56,7 +56,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: var(--text-color); /* Gold price text */
+    color: var(--text-color-secondary); /* Gold text */
 }
 
 .price h4 {
@@ -65,7 +65,7 @@
 
 .price button {
     background: none;
-    color: var(--text-color); /* Gold text */
+    color: var(--text-color-secondary); /* Gold text */
     font-size: 20px;
     transition: 0.5s;
     border: 2px solid var(--border-color); /* Gold border */
@@ -81,15 +81,14 @@
 }
 
 button.add {
-    display: flex;
+    /* display: flex;
     justify-content: center;
     align-items: center;
     font-size: 25px;
     border-radius: 50%;
-    background: var(--text-color); /* Gold button */
-    color: #000; /* Black text */
-    transition: 0.3s ease-in-out;
-}
+    background: var(--primary-bg); /* Gold button */
+    /* color: var(--text-color-secondary); /* Gold text */
+    /* transition: 0.3s ease-in-out;  */}
 
 button.add:hover {
     background: var(--highlight-color); /* Darker gold */
@@ -109,7 +108,7 @@ button.add:hover {
     background-color: var(--highlight-color); /* Darker gold */
     padding: 3px 12px;
     font-size: 12px;
-    color: black;
+    color: var(--text-color-secondary); /* Gold text */
     font-weight: bold;
     border-radius: 50px;
 }

@@ -20,12 +20,12 @@ const Home = () => {
         bgColor="black"
         productItems={discoutProducts}
       />
-      <Section
+      {/* <Section
         title="New Arrivals"
         bgColor="black"
         productItems={newArrivalData}
       />
-      <Section title="Best Sales" bgColor="black" productItems={bestSales} />
+      <Section title="Best Sales" bgColor="black" productItems={bestSales} /> */}
     </Fragment>
   );
 };

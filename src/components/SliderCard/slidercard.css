@@ -17,7 +17,7 @@
 
 .homeSlide p {
     margin: 20px 0;
-    color: #b8b7b7; /* Light gray for paragraph text */
+    color: var(--text-color-secondary); /* Light gray for paragraph text */
     font-size: 16px;
     line-height: 1.6;
 }
@@ -55,6 +55,6 @@
     max-height: 300px;
     object-fit: contain;
     border-radius: 8px;
-    border: 2px solid var(--border-color); /* Gold border for images */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+    /* border: 2px solid var(--border-color); Gold border for images */
+    /* box-shadow: 0 4px    px rgba(0, 0, 0, 0.3); Subtle shadow */
 }

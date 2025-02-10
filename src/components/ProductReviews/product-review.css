@@ -36,7 +36,8 @@
 }
 
 .product-reviews .rates .rate-comment span {
-  color: var(--text-color); /* Gold text for general comments */
+  /* color: var(--text-color); Gold text for general comments */
+  color: var(--text-color-secondary); /* Gold text */
 }
 
 .product-reviews .rates .rate-comment span:hover {
@@ -45,10 +46,9 @@
 
 /* Add a border around review sections for more structure */
 .product-reviews {
-  border: 2px solid var(--border-color); /* Gold border */
+  /* border: 2px solid var(--border-color); Gold border */
   padding: 20px;
   background-color: var(--secondary-bg); /* Dark gray background */
-  border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 

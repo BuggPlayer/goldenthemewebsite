@@ -4,9 +4,11 @@
   --primary-bg: #000; /* Black background */
   --secondary-bg: #121212; /* Dark gray for sections */
   --text-color: #FFD700; /* Gold text */
+  --text-color-secondary: #fff;
   --highlight-color: #DAA520; /* Darker gold for highlights */
   --border-color: #FFD700; /* Gold border */
   --font-primary: "Lato", sans-serif;
+
 }
 
 * {
@@ -130,11 +132,11 @@ button:hover {
 
 /* ---Cart Page--- */
 .cart-items {
-  background: var(--secondary-bg);
+  background: var(--primary-bg);
   height: auto;
-  border: 2px solid var(--border-color);
+  /* border: 2px solid var(--border-color); */
   padding: 20px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 
 .cart-items .cart-total {
@@ -166,8 +168,8 @@ button:hover {
   height: 100%;
   max-width: 300px;
   object-fit: contain;
-  border: 2px solid var(--border-color);
-  border-radius: 5px;
+  /* border: 2px solid var(--border-color); */
+  /* border-radius: 5px; */
 }
 
 @media (max-width: 767px) {
@@ -186,18 +188,19 @@ button:hover {
   width: fit-content;
   text-align: center;
   margin-top: 20px;
+  color: var(--text-color-secondary);
 }
 
 .cart-items .cart-details h4 {
   font-size: 15px;
   font-weight: 400;
   margin-top: 50px;
-  color: var(--highlight-color);
+  color: var(--text-color-secondary);
   width: fit-content;
 }
 
 .cart-items h4 span {
-  color: var(--highlight-color);
+  color: var(--text-color-secondary);
   margin-left: 20px;
   font-weight: 500;
 }
@@ -205,7 +208,7 @@ button:hover {
 .removeCart {
   background: none;
   font-size: 25px;
-  color: var(--highlight-color);
+  color: var(--text-color-secondary);
 }
 
 .cartControl {
@@ -242,13 +245,13 @@ button:hover {
 .cart-total h4 {
   font-size: 15px;
   font-weight: 400;
+  color: var(--text-color-secondary);
 }
 
 .cart-total h3 {
   font-size: 20px;
   font-weight: 500;
-  color: var(--highlight-color);
-}
+  color: var(--text-color-secondary);}
 
 .cart-total h2 {
   font-size: 18px;
@@ -256,8 +259,7 @@ button:hover {
   margin-bottom: 20px;
   border-bottom: 2px solid var(--border-color);
   padding-bottom: 10px;
-  color: var(--highlight-color);
-}
+  color: var(--text-color-secondary);}
 
 .no-items {
   color: var(--highlight-color);

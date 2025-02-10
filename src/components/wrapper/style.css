@@ -3,7 +3,7 @@
   text-align: center;
   background-color: var(--primary-bg); /* Black background */
   padding: 40px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 
 .icon {
@@ -31,10 +31,11 @@
 
 .wrapper .feature {
   padding: 15px;
-  border: 4px solid var(--border-color); /* Gold border */
+  /* margin: 5px; */
+  /* border: 4px solid var(--border-color); Gold border */
   background-color: var(--secondary-bg); /* Dark gray for contrast */
-  margin-bottom: 20px;
-  border-radius: 8px;
+  /* margin-bottom: 20px; */
+  /* border-radius: 8px; */
   transition: transform 0.3s ease;
 }
 
@@ -45,7 +46,7 @@
 .wrapper .feature h3 {
   font-size: 18px;
   font-weight: 500;
-  color: var(--text-color); /* Gold text */
+  /* color: var(--text-color-secondary); Gold text */
   width: fit-content;
   margin: 0 auto !important;
 }
