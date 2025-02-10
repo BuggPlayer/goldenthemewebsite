@@ -3,10 +3,10 @@
 :root {
   --primary-bg: #000; /* Black background */
   --secondary-bg: #121212; /* Dark gray for sections */
-  --text-color: #FFD700; /* Gold text */
+  --text-color: #d2a34b; /* Gold text */
   --text-color-secondary: #fff;
-  --highlight-color: #DAA520; /* Darker gold for highlights */
-  --border-color: #FFD700; /* Gold border */
+  --highlight-color: #d2a34b; /* Darker gold for highlights */
+  --border-color: #d2a34b; /* Gold border */
   --font-primary: "Lato", sans-serif;
 
 }
