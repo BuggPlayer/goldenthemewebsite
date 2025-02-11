@@ -9,8 +9,8 @@ import "react-toastify/dist/ReactToastify.css"; // Importa gli stili di react-to
 
 // Importazione lazy dei componenti delle pagine per il caricamento dinamico
 const Home = lazy(() => import("./pages/Home"));
-const Shop = lazy(() => import("./pages/Shop"));
-const Cart = lazy(() => import("./pages/Cart"));
+// const Shop = lazy(() => import("./pages/Shop"));
+// const Cart = lazy(() => import("./pages/Cart"));
 const Product = lazy(() => import("./pages/Product"));
 
 function App() {
@@ -38,11 +38,11 @@ function App() {
           {/* Rotta per la homepage */}
           <Route path="/" element={<Home />} />
           {/* Rotta per la pagina del negozio */}
-          <Route path="/shop" element={<Shop />} />
+          {/* <Route path="/shop" element={<Shop />} /> */}
           {/* Rotta per il dettaglio del prodotto */}
           <Route path="/shop/:id" element={<Product />} />
           {/* Rotta per la pagina del carrello */}
-          <Route path="/cart" element={<Cart />} />
+          {/* <Route path="/cart" element={<Cart />} /> */}
         </Routes>
         {/* Footer visualizzato su tutte le pagine */}
         <Footer />

@@ -2,9 +2,13 @@ import { useEffect, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import "./navbar.css";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector , useDispatch } from "react-redux";
+import { add_to_card } from "../../store/reducer/cardReducer";
 const NavBar = () => {
-  const { cartList } = useSelector((state) => state.cart);
+  const dispatch = useDispatch()
+  // const {  add_to_card} = useSelector((state) => state.card);
+
+  // console.log("add_to_card",add_to_card)
   const [expand, setExpand] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
   // fixed Header
@@ -22,6 +26,10 @@ const NavBar = () => {
   //     setCartItem(JSON.parse(storedCart));
   //   }
   // },[])
+
+  useEffect(()=>{
+dispatch(add_to_card)
+  },[])
   return (
     <Navbar
       fixed="top"
@@ -31,7 +39,7 @@ const NavBar = () => {
       <Container className="navbar-container">
         <Navbar.Brand to="/">
           <ion-icon name="bag"></ion-icon>
-          <h1 className="logo">Multimart</h1>
+          <h1 className="logo">NOZE</h1>
         </Navbar.Brand>
         {/* Media cart and toggle */}
         <div className="d-flex">
@@ -126,7 +134,7 @@ const NavBar = () => {
                 aria-label="Go to Cart Page"
                 to="/cart"
                 className="cart"
-                data-num={cartList.length}
+                data-num={add_to_card?.length}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

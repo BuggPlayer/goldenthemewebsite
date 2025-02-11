@@ -14,7 +14,7 @@ const Cart = () => {
   const dispatch = useDispatch();
 
   // Calcola il prezzo totale degli articoli nel carrello
-  const totalPrice = cartList.reduce(
+  const totalPrice = cartList?.reduce(
     (price, item) => price + item.qty * item.price,
     0
   );
@@ -35,11 +35,11 @@ const Cart = () => {
         <Row className="justify-content-center">
           <Col md={8}>
             {/* Messaggio se il carrello è vuoto */}
-            {cartList.length === 0 && (
+            {cartList?.length === 0 && (
               <h1 className="no-items product">No Items are add in Cart</h1>
             )}
             {/* Mappatura degli articoli presenti nel carrello */}
-            {cartList.map((item) => {
+            {cartList?.map((item) => {
               const productQty = item.price * item.qty;
               return (
                 <div className="cart-list" key={item.id}>

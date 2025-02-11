@@ -3,48 +3,52 @@ import "./product-card.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../app/features/cart/cartSlice";
+// import { addToCart } from "../../app/features/cart/cartSlice";
+import { add_to_card } from "../../store/reducer/cardReducer";
 
-const ProductCard = ({ title, productItem }) => {
+const ProductCard = ({ productItem }) => {
   const dispatch = useDispatch();
-  const router = useNavigate();
-  const handelClick = () => {
-    router(`/shop/${productItem.id}`);
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/shop/${productItem.id}`);
   };
-  const handelAdd = (productItem) => {
-    dispatch(addToCart({ product: productItem, num: 1 }));
+
+  const handleAddToCart = () => {
+    dispatch(add_to_card({ product: productItem, num: 1 }));
     toast.success("Product has been added to cart!");
   };
+
   return (
-    <Col md={3} sm={5} xs={10} className="product mtop">
-      {title === "Big Discount" ? (
+    <Col md={3} sm={6} xs={12} className="product mtop">
+      {productItem.discount > 0 && (
         <span className="discount">{productItem.discount}% Off</span>
-      ) : null}
-      <img
-        loading="lazy"
-        onClick={() => handelClick()}
-        src={productItem.imgUrl}
-        alt=""
-      />
+      )}
+      <div className="product-image" onClick={handleClick}>
+        <img loading="lazy" src={productItem.images[0]} alt={productItem.name} />
+      </div>
       <div className="product-like">
         <ion-icon name="heart-outline"></ion-icon>
       </div>
       <div className="product-details">
-        <h3 onClick={() => handelClick()}>{productItem.productName}</h3>
+        <h3 onClick={handleClick} className="truncate">{productItem.name}</h3>
+        <p className="category">Category: {productItem.category}</p>
+        <p className="brand">Brand: {productItem.brand}</p>
+        <p className="stock">Stock: {productItem.stock > 0 ? productItem.stock : "Out of Stock"}</p>
         <div className="rate">
-          <i className="fa fa-star"></i>
-          <i className="fa fa-star"></i>
-          <i className="fa fa-star"></i>
-          <i className="fa fa-star"></i>
-          <i className="fa fa-star"></i>
+          {[...Array(5)].map((_, index) => (
+            <i key={index} className="fa fa-star"></i>
+          ))}
         </div>
         <div className="price">
-          <h4>${productItem.price}</h4>
+          <h4>₹{productItem.price}</h4>
+         
           <button
-            aria-label="Add"
-            type="submit"
+            aria-label="Add to cart"
+            type="button"
             className="add"
-            onClick={() => handelAdd(productItem)}
+            onClick={handleAddToCart}
+            disabled={productItem.stock === 0}
           >
             <ion-icon name="add"></ion-icon>
           </button>
