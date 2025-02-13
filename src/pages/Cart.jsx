@@ -7,7 +7,7 @@ import {
   decreaseQty,
   deleteProduct,
 } from "../store/reducer/cartSlice";
-
+import "./cart.css"
 const Cart = () => {
   const cartList = useSelector((state) => state.cart.cartList);
   const isLoggedIn = localStorage.getItem('user-info'); // Assuming you have an auth slice
@@ -46,66 +46,59 @@ const Cart = () => {
                 const productQty = item.price * item.qty;
                 return (
                   <div className="cart-list" key={item._id}>
-                    <Row className="align-items-center">
-                      <Col xs={4} className="image-holder">
-                        <img
-                          src={item.images[0]}
-                          alt={item.name}
-                          className="cart-img"
-                        />
-                      </Col>
-                      <Col xs={8} className="cart-info">
-                        <h3 className="cart-product-name">
-                          {item.name.length > 50
-                            ? `${item.name.substring(0, 50)}...`
-                            : item.name}
-                        </h3>
-                        <p className="cart-brand">Brand: {item.brand}</p>
-                        <p className="cart-category">Category: {item.category}</p>
-                        <p className="cart-price">
-                          ${item.price} x {item.qty} ={" "}
-                          <span className="total-price">${productQty}</span>
-                        </p>
-                        <div className="cart-actions">
-                          <button
-                            className="cart-btn inc"
-                            onClick={() =>
-                              dispatch(addToCart({ product: item, num: 1 }))
-                            }
-                          >
-                            <i className="fa-solid fa-plus"></i>
-                          </button>
-                          <button
-                            className="cart-btn dec"
-                            onClick={() => dispatch(decreaseQty(item))}
-                          >
-                            <i className="fa-solid fa-minus"></i>
-                          </button>
-                          <button
-                            className="cart-btn delete"
-                            onClick={() => dispatch(deleteProduct(item))}
-                          >
-                            <ion-icon name="close"></ion-icon>
-                          </button>
-                        </div>
-                      </Col>
-                    </Row>
-                  </div>
+                  <Row className="align-items-center cart-item">
+                    <Col xs={3} className="image-holder">
+                      <img src={item.images[0]} alt={item.name} className="cart-img" />
+                    </Col>
+                    <Col xs={6} className="cart-info">
+                      <h4 className="cart-product-name">
+                        {item.name.length > 35 ? `${item.name.substring(0, 35)}...` : item.name}
+                      </h4>
+                      <p className="cart-details">Brand: {item.brand} | {item.category}</p>
+                      <p className="cart-price">
+                        ${item.price} x {item.qty} ={" "}
+                        <span className="total-price">${productQty}</span>
+                      </p>
+                    </Col>
+                    <Col xs={3} className="cart-actions">
+                      <button
+                        className="cart-btn inc"
+                        onClick={() => dispatch(addToCart({ product: item, num: 1 }))}
+                      >
+                        <i className="fa-solid fa-plus"></i>
+                      </button>
+                      <button
+                        className="cart-btn dec"
+                        onClick={() => dispatch(decreaseQty(item))}
+                      >
+                        <i className="fa-solid fa-minus"></i>
+                      </button>
+                      <button
+                        className="cart-btn delete"
+                        onClick={() => dispatch(deleteProduct(item))}
+                      >
+                        <ion-icon name="close"></ion-icon>
+                      </button>
+                    </Col>
+                  </Row>
+                </div>
+                
                 );
               })
             )}
           </Col>
           <Col md={4}>
-            <div className="cart-summary">
-              <h2>Cart Summary</h2>
-              <div className="summary-total">
-                <h4>Total:</h4>
-                <h3>${totalPrice}</h3>
-              </div>
-              <button className="buy-now-btn" onClick={handleBuyNow}>
-                Buy Now
-              </button>
-            </div>
+          <div className="cart-summary">
+  <h2 className="summary-title">Cart Summary</h2>
+  <div className="summary-total">
+    <h4 className="summary-label">Total:</h4>
+    <h3 className="summary-price">${totalPrice}</h3>
+  </div>
+  <button className="buy-now-btn" onClick={handleBuyNow}>
+    Buy Now
+  </button>
+</div>
+
           </Col>
         </Row>
       </Container>

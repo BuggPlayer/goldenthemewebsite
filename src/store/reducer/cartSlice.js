@@ -21,12 +21,12 @@ export const cartSlice = createSlice({
       const productToAdd = action.payload.product;
       const quantity = action.payload.num;
       const productExit = state.cartList.find(
-        (item) => item.id === productToAdd.id
+        (item) => item._id === productToAdd._id
       );
       // Se il prodotto esiste già, aggiorna la quantità
       if (productExit) {
         state.cartList = state.cartList.map((item) =>
-          item.id === action.payload.product.id
+          item._id === action.payload.product._id
             ? { ...productExit, qty: productExit.qty + action.payload.num }
             : item
         );

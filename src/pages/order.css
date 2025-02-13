@@ -1,0 +1,137 @@
+body {
+    background-color: var(--primary-bg);
+    color: var(--text-color-secondary);
+    font-family: var(--font-primary);
+    margin: 0;
+    padding: 0;
+  }
+  
+  .order-page-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 2rem;
+    background-color: var(--primary-bg);
+  }
+  
+  .order-left,
+  .order-right {
+    flex: 1;
+  }
+  
+  @media (min-width: 768px) {
+    .order-page-container {
+      flex-direction: row;
+    }
+  
+    .order-left {
+      border-right: 1px solid var(--border-color);
+      padding-right: 2rem;
+    }
+  }
+  
+  .order-summary-heading {
+    font-size: 1.5rem;
+    /* margin-bottom: 1rem; */
+    color: var(--text-color);
+  }
+  
+  .order-summary {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: var(--secondary-bg);
+  }
+  
+  .order-product-details {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .order-product-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .order-product-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  
+  .order-product-info h3 {
+    font-size: 1rem;
+    margin: 0;
+    color: var(--text-color);
+  }
+  
+  .order-product-info p {
+    color: var(--text-color-secondary);
+  }
+  
+  .order-form input {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--secondary-bg);
+    color: var(--text-color-secondary);
+    font-family: var(--font-primary);
+  }
+  
+  .payment-options label {
+    display: block;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+  }
+  
+  .payment-options input[type="radio"] {
+    margin-right: 0.5rem;
+  }
+  
+  .card-details input {
+    margin-bottom: 0.5rem;
+  }
+  
+  .place-order-btn {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--highlight-color);
+    color: var(--primary-bg);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    font-weight: bold;
+  }
+  
+  .place-order-btn:hover {
+    background-color: var(--text-color);
+  }
+  
+  /* Mobile responsiveness adjustments */
+  @media (max-width: 768px) {
+    .order-summary {
+      flex-direction: column;
+    }
+  
+    .order-product-details {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .order-product-image {
+      width: 80px;
+      height: 80px;
+    }
+  }
+  
