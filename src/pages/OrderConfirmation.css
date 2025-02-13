@@ -1,0 +1,70 @@
+.confirm-order-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--secondary-bg);
+    color: var(--text-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.confirm-order-container h2 {
+    text-align: center;
+    color: var(--highlight-color);
+    margin-bottom: 20px;
+}
+
+.confirm-order-summary,
+.confirm-shipping-details,
+.confirm-payment-details {
+    margin-bottom: 20px;
+}
+
+.confirm-order-summary h3,
+.confirm-shipping-details h3,
+.confirm-payment-details h3 {
+    color: var(--highlight-color);
+    margin-bottom: 10px;
+}
+
+.confirm-product-details {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: var(--primary-bg);
+    border-radius: 8px;
+}
+
+.confirm-product-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+.confirm-product-info p {
+    margin: 5px 0;
+}
+
+.confirm-order-total {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.confirm-back-to-home-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: var(--highlight-color);
+    color: var(--text-color-secondary);
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+.confirm-back-to-home-btn:hover {
+    background-color: #d2a34b; /* Darker gold for hover effect */
+}

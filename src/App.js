@@ -13,6 +13,7 @@ import GoolgeLogin from "./components/GoogleWrapper/GoogleWrapper";
 // import OrderPage from "./pages/OrderPage";
 import RefrshHandler from "./hooks/RefreshHandler";
 import OrderPage from "./pages/OrderPage";
+import OrderConfirmation from "./pages/ConfirmOrder";
 
 // Importazione lazy dei componenti delle pagine per il caricamento dinamico
 const Home = lazy(() => import("./pages/Home"));
@@ -71,7 +72,7 @@ const PrivateRoute = ({ element }) => {
           {/* Rotta per la pagina del carrello */}
           <Route path="/cart" element={<Cart />} />
           <Route path="/order" element={<OrderPage />} />
-          {/* <Route path="/order" element={<OrderPage />} /> */}
+          <Route path="/order-confirmation" element={<OrderConfirmation />} />
 
 
           
