@@ -18,6 +18,17 @@ const NavBar = () => {
   }, []);
 
   // Handle logout
+  const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(() => {
+    // Get user info from localStorage
+    const storedUserInfo = localStorage.getItem("user-info");
+    if (storedUserInfo) {
+      setUserInfo(JSON.parse(storedUserInfo));
+    }
+  }, []);
+
+
   const handleLogout = () => {
     localStorage.removeItem("user-info");
     setIsAuthenticated(false);
@@ -86,29 +97,46 @@ const NavBar = () => {
               </Link>
             </Nav.Item>
 
-              {/* User Profile Dropdown */}
-              <NavDropdown
-              title={
-                <span className="profile-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FFD700" className="nav-icon">
-                    <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clipRule="evenodd"/>
-                  </svg>
-                </span>
-              }
-              id="basic-nav-dropdown"
-              align="end"
+            <NavDropdown
+      title={
+        <span className="profile-icon">
+          {userInfo ? (
+            <img
+              src={userInfo.image}
+              alt="User Avatar"
+              className="nav-icon rounded-full w-8 h-8"
+            />
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="#FFD700"
+              className="nav-icon"
             >
-              <NavDropdown.Item as={Link} to="/cart">My Cart</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/orders">My Orders</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/profile">My Profile</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/settings">Settings</NavDropdown.Item>
-              <NavDropdown.Divider />
-              {isAuthenticated ? (
-                <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
-              ) : (
-                <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
-              )}
-            </NavDropdown>
+              <path
+                fillRule="evenodd"
+                d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
+                clipRule="evenodd"
+              />
+            </svg>
+          )}
+          {userInfo && <span className="ml-2" style={{ color:"white" }}>{userInfo.name || userInfo.email}</span>}
+        </span>
+      }
+      id="basic-nav-dropdown"
+      align="end"
+    >
+      <NavDropdown.Item as={Link} to="/cart">My Cart</NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="/orders">My Orders</NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="/profile">My Profile</NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="/settings">Settings</NavDropdown.Item>
+      <NavDropdown.Divider />
+      {isAuthenticated ? (
+        <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+      ) : (
+        <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
+      )}
+    </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Container>
