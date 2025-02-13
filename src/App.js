@@ -10,7 +10,7 @@ import Signup from "./pages/Register";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import GoolgeLogin from "./components/GoogleWrapper/GoogleWrapper";
 // import RefrshHandler from "./hooks/RefreshHandler";
-import OrderPage from "./pages/OrderPage";
+// import OrderPage from "./pages/OrderPage";
 import RefrshHandler from "./hooks/RefreshHandler";
 
 // Importazione lazy dei componenti delle pagine per il caricamento dinamico
@@ -21,11 +21,13 @@ const Product = lazy(() => import("./pages/Product"));
 
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  console.log("rrrr",process.env)
+  const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 const GoogleWrapper = ()=>(
   
-  <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
+  <GoogleOAuthProvider clientId={clientId}>
     <GoolgeLogin ></GoolgeLogin>
   </GoogleOAuthProvider>
 )
