@@ -14,8 +14,9 @@ export const place_order = createAsyncThunk(
     navigate,
     items,
   }) => {
+    
     try {
-      const { data } = await base_URL.post("/home/order/palce-order", {
+      const { data } = await axios.post(`${base_URL}/api/home/order/palce-order`, {
         price,
         products,
         shipping_fee,
@@ -25,14 +26,14 @@ export const place_order = createAsyncThunk(
         items,
       });
       
-      navigate("/payment", {
-        state: {
-          price: price + shipping_fee,
-          items,
-          orderId: data.orderId,
-        },
-      });
-      console.log("payment" , data);
+      // navigate("/payment", {
+      //   state: {
+      //     price: price + shipping_fee,
+      //     items,
+      //     orderId: data.orderId,
+      //   },
+      // });
+      // console.log("payment---" , data);
       return true;
     } catch (error) {
       console.log(error.response);

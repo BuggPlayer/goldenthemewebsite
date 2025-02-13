@@ -42,7 +42,6 @@ const OrderPage = () => {
 
         // Calculate total price
         const totalPrice = cartList.reduce((total, item) => total + item.price * item.quantity, 0);
-console.log("userInfo.email",userInfo, userInfo.email)
         // Prepare order details
         const orderDetails = {
             price: totalPrice,
@@ -55,11 +54,11 @@ console.log("userInfo.email",userInfo, userInfo.email)
             })),
             shipping_fee: 0, // Add shipping fee if applicable
             shippingInfo: address,
-            // userId: userInfo.email,
-            userInfo:1,
+            userId: "efwefwefwef",
+            userInfo:"test",
             paymentMethod,
         };
-console.log("orderDetails",orderDetails)
+
         // Dispatch the place_order action
         dispatch(place_order(orderDetails));
  // Navigate to the Order Confirmation page with order details
@@ -139,7 +138,7 @@ console.log("orderDetails",orderDetails)
                         )}
                     </div>
 
-                    <button onClick={handlePlaceOrder} className="place-order-btn">Placeee Order</button>
+                    <button onClick={handlePlaceOrder} className="place-order-btn">Place Order</button>
                 </div>
             </div>
         </div>
