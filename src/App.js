@@ -21,13 +21,13 @@ const Product = lazy(() => import("./pages/Product"));
 
 
 function App() {
-  console.log("rrrr",process.env)
+
   const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 const GoogleWrapper = ()=>(
   
-  <GoogleOAuthProvider clientId={clientId}>
+  <GoogleOAuthProvider clientId="347410691860-i1gudm0eg5hcq1visjsianmabh5d4otc.apps.googleusercontent.com">
     <GoolgeLogin ></GoolgeLogin>
   </GoogleOAuthProvider>
 )
