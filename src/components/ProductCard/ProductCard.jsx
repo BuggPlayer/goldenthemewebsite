@@ -3,9 +3,9 @@ import "./product-card.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-// import { addToCart } from "../../app/features/cart/cartSlice";
-import { add_to_card } from "../../store/reducer/cardReducer";
-
+import { addToCart } from "../../store/reducer/cartSlice";
+// import { addToCart } from "../../st";
+// addToCart
 const ProductCard = ({ productItem }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -14,8 +14,11 @@ const ProductCard = ({ productItem }) => {
     navigate(`/shop/${productItem.id}`);
   };
 
-  const handleAddToCart = () => {
-    dispatch(add_to_card({ product: productItem, num: 1 }));
+  const handleAddToCart = (productItem) => {
+
+        dispatch(addToCart({ product: productItem, num: 1 }));
+
+    // dispatch(add_to_card({ product: productItem, num: 1 }));
     toast.success("Product has been added to cart!");
   };
 
@@ -47,7 +50,7 @@ const ProductCard = ({ productItem }) => {
             aria-label="Add to cart"
             type="button"
             className="add"
-            onClick={handleAddToCart}
+            onClick={()=>handleAddToCart(productItem)}
             disabled={productItem.stock === 0}
           >
             <ion-icon name="add"></ion-icon>

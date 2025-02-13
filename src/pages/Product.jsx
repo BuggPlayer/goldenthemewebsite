@@ -5,7 +5,7 @@ import ShopList from "../components/ShopList"; // Importa la lista dei prodotti
 import { products } from "../utils/products"; // Importa i prodotti disponibili
 import { useParams } from "react-router-dom"; // Per ottenere l'ID del prodotto dall'URL
 import ProductDetails from "../components/ProductDetails/ProductDetails"; // Dettagli del prodotto
-import ProductReviews from "../components/ProductReviews/ProductReviews"; // Recensioni del prodotto
+// import ProductReviews from "../components/ProductReviews/ProductReviews"; // Recensioni del prodotto
 import useWindowScrollToTop from "../hooks/useWindowScrollToTop"; // Hook per scrollare in alto
 
 // Componente Product che visualizza i dettagli del prodotto selezionato

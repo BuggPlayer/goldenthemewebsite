@@ -6,11 +6,17 @@ import { products } from "../utils/products";
 import ShopList from "../components/ShopList";
 import Banner from "../components/Banner/Banner";
 import useWindowScrollToTop from "../hooks/useWindowScrollToTop";
+import { useSelector } from "react-redux";
 
 const Shop = () => {
+  const {products } = useSelector(state => state.home)
+console.log("prooo" ,products)
   const [filterList, setFilterList] = useState(
-    products.filter((item) => item.category === "sofa")
+    // products.filter((item) => item.category === "sofa")
+    products.filter((item) => item)
+
   );
+  console.log("filter" , filterList , products)
   useWindowScrollToTop();
 
   return (
@@ -28,7 +34,7 @@ const Shop = () => {
           </Row>
         </Container>
         <Container>
-          <ShopList productItems={filterList} />
+          <ShopList productItems = { filterList ??  products } />
         </Container>
       </section>
     </Fragment>
