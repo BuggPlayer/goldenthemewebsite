@@ -27,7 +27,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 const GoogleWrapper = ()=>(
   
-  <GoogleOAuthProvider clientId="347410691860-i1gudm0eg5hcq1visjsianmabh5d4otc.apps.googleusercontent.com">
+  <GoogleOAuthProvider clientId="347410691860-i1gudm0eg5hcq1visjsianmabh5d4otc.apps.googleusercontent.com" >
     <GoolgeLogin ></GoolgeLogin>
   </GoogleOAuthProvider>
 )
