@@ -11,11 +11,11 @@ import { base_URL } from "../../utils/apiList";
 
 const GoolgeLogin = (props) => {
     const api = axios.create({
-        baseURL: `${base_URL}/auth/`,
+        baseURL: `${base_URL}`,
         // withCredentials: true,
     });
     
-     const googleAuth = (code) => api.get(`/google?code=${code}`);
+     const googleAuth = (code) => api.get(`${base_URL}/auth/google?code=${code}`);
 
 	const [user, setUser] = useState(null);
 	const navigate = useNavigate();
@@ -24,7 +24,7 @@ const GoolgeLogin = (props) => {
         try {
             if (authResult?.code) { // Optional chaining to avoid null/undefined errors
                 const result = await googleAuth(authResult.code);
-                
+                console.log("resuolr" , result)
                 if (result?.data?.user) {
                     const { email, name, image } = result.data.user;
                     const token = result.data.token;
