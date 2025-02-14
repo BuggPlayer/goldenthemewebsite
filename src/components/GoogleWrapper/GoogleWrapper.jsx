@@ -26,10 +26,10 @@ const GoolgeLogin = (props) => {
                 const result = await googleAuth(authResult.code);
                 console.log("resuolr" , result)
                 if (result?.data?.user) {
-                    const { email, name, image } = result.data.user;
+                    const { email, name, image , _id } = result.data.user;
                     const token = result.data.token;
     
-                    const userObj = { email, name, token, image };
+                    const userObj = { _id,email, name, token, image };
                     localStorage.setItem('user-info', JSON.stringify(userObj));
     
                     navigate('/'); // Navigate after setting user info

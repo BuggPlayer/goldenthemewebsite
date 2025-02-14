@@ -51,11 +51,12 @@ const OrderPage = () => {
                 price: item.price,
                 quantity: item.quantity,
                 image: item.images[0],
+                sellerId:item.sellerId,
             })),
             shipping_fee: 0, // Add shipping fee if applicable
             shippingInfo: address,
-            userId: "efwefwefwef",
-            userInfo:"test",
+            userId:userInfo._id,
+            userName:userInfo.name,
             paymentMethod,
         };
 
