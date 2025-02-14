@@ -9,8 +9,8 @@ const OrderPage = () => {
 
     const cartList = useSelector((state) => state.cart.cartList);
     // const userInfo = useSelector((state) => state.auth.userInfo); // Assuming userInfo is stored in auth state
-    const userInfo = localStorage.getItem('user-info'); // Assuming userInfo is stored in auth state
-
+    // const userInfo = localStorage.getItem('user-info'); // Assuming userInfo is stored in auth state
+    const userInfo = JSON.parse(localStorage.getItem("user-info"));
     const dispatch = useDispatch();
 
     const [address, setAddress] = useState({
@@ -55,8 +55,8 @@ const OrderPage = () => {
             })),
             shipping_fee: 0, // Add shipping fee if applicable
             shippingInfo: address,
-            userId:userInfo._id,
-            userName:userInfo.name,
+            userId:userInfo?._id,
+            userName:userInfo?.name,
             paymentMethod,
         };
 
