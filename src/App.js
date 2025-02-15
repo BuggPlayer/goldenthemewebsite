@@ -41,7 +41,7 @@ const GoogleWrapper = ()=>(
   </GoogleOAuthProvider>
 )
 const PrivateRoute = ({ element }) => {
-  console.log("elelemt" , element)
+  // console.log("elelemt" , element)
   return isAuthenticated ? element : <Navigate to="/login" />
 }
   return (

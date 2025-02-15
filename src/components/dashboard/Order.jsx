@@ -6,10 +6,8 @@ import { get_order } from '../../store/reducer/orderReducer'
 const Order = () => {
 
     const { orderId } = useParams()
-    console.log("orddrid ,", orderId)
     const dispatch = useDispatch()
     const { myOrder } = useSelector(state => state.order)
-    console.log("ttttt" ,myOrder)
     // const { userInfo } = useSelector(state => state.auth)
     const userInfo = JSON.parse(localStorage.getItem("user-info"));
 
@@ -30,7 +28,7 @@ const Order = () => {
                     <p className='text-slate-600 text-sm font-semibold'>Email to {userInfo.email}</p>
                 </div>
                 <div className='text-slate-600'>
-                    <h2>Price: ${myOrder.price} include shipping iee</h2>
+                    <h2>Price: ₹{myOrder.price} include shipping iee</h2>
                     <p>Pyment status: <span className={`py-[1px] text-xs px-3 ${myOrder.payment_status === 'paid' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'} rounded-md `}>{myOrder.payment_status}</span></p>
                     <p>Order status: <span className={`py-[1px] text-xs px-3 ${myOrder.delivery_status === 'paid' ? 'bg-indigo-100 text-indigo-800' : 'bg-red-100 text-red-800'} rounded-md `}>{myOrder.delivery_status}</span></p>
                 </div>

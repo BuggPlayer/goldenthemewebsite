@@ -33,7 +33,6 @@ const Cart = () => {
       navigate("/order"); // Redirect to order page if logged in
     }
   };
-
   return (
     <section className="cart-items">
       <Container>
@@ -56,8 +55,8 @@ const Cart = () => {
                       </h4>
                       <p className="cart-details">Brand: {item.brand} | {item.category}</p>
                       <p className="cart-price">
-                        ${item.price} x {item.qty} ={" "}
-                        <span className="total-price">${productQty}</span>
+                      ₹{item.price} x {item.qty} ={" "}
+                        <span className="total-price">₹{productQty}</span>
                       </p>
                     </Col>
                     <Col xs={3} className="cart-actions">
@@ -92,7 +91,7 @@ const Cart = () => {
   <h2 className="summary-title">Cart Summary</h2>
   <div className="summary-total">
     <h4 className="summary-label">Total:</h4>
-    <h3 className="summary-price">${totalPrice}</h3>
+    <h3 className="summary-price">₹{totalPrice}</h3>
   </div>
   <button className="buy-now-btn" onClick={handleBuyNow}>
     Buy Now

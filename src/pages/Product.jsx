@@ -7,13 +7,16 @@ import { useParams } from "react-router-dom"; // Per ottenere l'ID del prodotto 
 import ProductDetails from "../components/ProductDetails/ProductDetails"; // Dettagli del prodotto
 // import ProductReviews from "../components/ProductReviews/ProductReviews"; // Recensioni del prodotto
 import useWindowScrollToTop from "../hooks/useWindowScrollToTop"; // Hook per scrollare in alto
+import { useSelector } from "react-redux";
 
 // Componente Product che visualizza i dettagli del prodotto selezionato
 const Product = () => {
   const { id } = useParams(); // Recupera l'ID del prodotto dai parametri dell'URL
+  const {products, latest_product, topRated_product, discount_product } = useSelector(state => state.home)
+
   const [selectedProduct, setSelectedProduct] = useState(
     // Trova il prodotto corrispondente all'ID passato
-    products.filter((item) => parseInt(item.id) === parseInt(id))[0]
+    products.filter((item) => parseInt(item._id) === parseInt(id))[0]
   );
   const [relatedProducts, setRelatedProducts] = useState([]); // Stato per i prodotti correlati
 
@@ -23,7 +26,7 @@ const Product = () => {
     window.scrollTo(0, 0);
     // Aggiorna il prodotto selezionato
     setSelectedProduct(
-      products.filter((item) => parseInt(item.id) === parseInt(id))[0]
+      products.filter((item) => parseInt(item._id) === parseInt(id))[0]
     );
     // Trova i prodotti correlati della stessa categoria, escluso il prodotto corrente
     setRelatedProducts(
@@ -36,11 +39,10 @@ const Product = () => {
   }, [selectedProduct, id]); // Dipendenze: cambia al variare di selectedProduct o id
 
   useWindowScrollToTop(); // Custom hook per scrollare sempre in cima
-
   return (
     <Fragment>
       {/* Banner con il nome del prodotto */}
-      <Banner title={selectedProduct?.productName} />
+      <Banner title={selectedProduct?.name} />
       {/* Dettagli del prodotto selezionato */}
       <ProductDetails selectedProduct={selectedProduct} />
       {/* Recensioni del prodotto selezionato */}
@@ -51,7 +53,7 @@ const Product = () => {
           <h3 style={{ color:"white"}}>You might also like</h3> {/* Titolo della sezione */}
         </Container>
         {/* Lista dei prodotti correlati */}
-        <ShopList productItems={relatedProducts} />
+        <ShopList productItems={products} />
       </section>
     </Fragment>
   );

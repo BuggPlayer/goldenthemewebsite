@@ -4,16 +4,18 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 // import { addToCart } from "../../app/features/cart/cartSlice";
 import "./product-details.css";
+import { addToCart } from "../../store/reducer/cartSlice";
 
 const ProductDetails = ({ selectedProduct }) => {
   const dispatch = useDispatch();
 
   const [quantity, setQuantity] = useState(1);
   const handleQuantityChange = (e) => {
-    setQuantity(e.target.value);
+    setQuantity(Number(e.target.value));
   };
   const handelAdd = (selectedProduct, quantity) => {
-    // dispatch(addToCart({ product: selectedProduct, num: quantity }));
+    // dispatch(addToCarr({ product: selectedProduct, num: quantity }));
+    dispatch(addToCart({ product: selectedProduct, num: quantity }));
     toast.success("Product has been added to cart!");
   };
 
@@ -22,10 +24,10 @@ const ProductDetails = ({ selectedProduct }) => {
       <Container>
         <Row className="justify-content-center">
           <Col md={6}>
-            <img loading="lazy" src={selectedProduct?.imgUrl} alt="" />
+            <img loading="lazy" src={selectedProduct?.images[0]} alt="" />
           </Col>
           <Col md={6}>
-            <h2>{selectedProduct?.productName}</h2>
+            <h2>{selectedProduct?.name}</h2>
             <div className="rate">
               <div className="stars">
                 <i className="fa fa-star"></i>
@@ -34,10 +36,10 @@ const ProductDetails = ({ selectedProduct }) => {
                 <i className="fa fa-star"></i>
                 <i className="fa fa-star"></i>
               </div>
-              <span>{selectedProduct?.avgRating} ratings</span>
+              <span>{selectedProduct?.rating} ratings</span>
             </div>
             <div className="info">
-              <span className="price">${selectedProduct?.price}</span>
+              <span className="price">₹{selectedProduct?.price}</span>
               <span>category:{selectedProduct?.category}</span>
             </div>
             <p>{selectedProduct?.shortDesc}</p>

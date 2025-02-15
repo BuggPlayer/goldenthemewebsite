@@ -2,17 +2,26 @@ import { Col } from "react-bootstrap";
 import "./product-card.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/reducer/cartSlice";
+import { useEffect } from "react";
+import { messageClear } from "../../store/reducer/homeReducer";
 // import { addToCart } from "../../st";
 // addToCart
 const ProductCard = ({ productItem }) => {
+  const { successMessage, errorMessage } = useSelector(state => state.home)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/shop/${productItem.id}`);
+    navigate(`/shop/${productItem._id}`);
   };
+  useEffect(() => {
+    if (successMessage) {
+        toast.success(successMessage)
+        dispatch(messageClear())
+    }
+}, [successMessage])
 
   const handleAddToCart = (productItem) => {
 

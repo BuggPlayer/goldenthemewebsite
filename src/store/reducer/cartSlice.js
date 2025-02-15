@@ -37,19 +37,20 @@ export const cartSlice = createSlice({
     },
     // Diminuisce la quantità di un prodotto
     decreaseQty: (state, action) => {
+      console.log("sss" , state, "Action" , action)
       const productTodecreaseQnty = action.payload;
       const productExit = state.cartList.find(
-        (item) => item.id === productTodecreaseQnty.id
+        (item) => item._id === productTodecreaseQnty._id
       );
       // Se la quantità è 1, rimuove il prodotto
       if (productExit.qty === 1) {
         state.cartList = state.cartList.filter(
-          (item) => item.id !== productExit.id
+          (item) => item._id !== productExit._id
         );
       } else {
         // Altrimenti, diminuisce la quantità del prodotto
         state.cartList = state.cartList.map((item) =>
-          item.id === productExit.id
+          item._id === productExit._id
             ? { ...productExit, qty: productExit.qty - 1 }
             : item
         );
@@ -59,7 +60,7 @@ export const cartSlice = createSlice({
     deleteProduct: (state, action) => {
       const productToDelete = action.payload;
       state.cartList = state.cartList.filter(
-        (item) => item.id !== productToDelete.id
+        (item) => item._id !== productToDelete._id
       );
     },
   },
