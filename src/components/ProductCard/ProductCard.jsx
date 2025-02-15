@@ -37,7 +37,7 @@ const ProductCard = ({ productItem }) => {
         <span className="discount">{productItem.discount}% Off</span>
       )}
       <div className="product-image" onClick={handleClick}>
-        <img loading="lazy" src={productItem.images[0]} alt={productItem.name} />
+        <img loading="lazy" src={productItem?.images[0]} alt={productItem.name} />
       </div>
       <div className="product-like">
         <ion-icon name="heart-outline"></ion-icon>

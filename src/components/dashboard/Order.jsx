@@ -59,7 +59,7 @@ const Order = () => {
                     <div key={i} className='flex justify-between items-center p-4 bg-gray-50 rounded-lg border border-gray-100 hover:shadow-md transition-shadow'>
                         {/* Product Image and Details */}
                         <div className='flex items-center gap-4'>
-                            {/* <img className='w-[5px] h-[5px] object-cover rounded-md' src={p.image} alt={p.name} /> */}
+                            <img style={{ width:100 }} src={p.image} alt={p.name} />
                             <div className='flex flex-col gap-1'>
                                 <Link to="#" className='text-slate-600 font-medium hover:text-blue-600 transition-colors'>{p.name}</Link>
                                 <p className='text-slate-500 text-sm'>
@@ -71,10 +71,10 @@ const Order = () => {
                         {/* Product Price and Discount */}
                         <div className='text-right'>
                             <h2 className='text-md text-orange-500 font-semibold'>
-                                ${p.price - Math.floor((p.price * p.discount) / 100)}
+                            ₹{p.price - Math.floor((p.price ) / 100)}
                             </h2>
-                            <p className='text-slate-500 text-sm line-through'>${p.price}</p>
-                            <p className='text-green-600 text-sm'>-{p.discount}%</p>
+                            {/* <p className='text-slate-500 text-sm line-through'>₹{p.price}</p> */}
+                            {/* <p className='text-green-600 text-sm'>-{p.discount}%</p> */}
                         </div>
                     </div>
                 ))}

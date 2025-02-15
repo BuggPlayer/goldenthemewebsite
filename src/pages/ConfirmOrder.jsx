@@ -29,13 +29,13 @@ const OrderConfirmation = () => {
                         <img src={product.image} alt={product.name} className="confirm-product-image" />
                         <div className="confirm-product-info">
                             <p className="confirm-product-name">{product.name}</p>
-                            <p className="confirm-product-price">💰 Price: ${product.price}</p>
-                            <p className="confirm-product-quantity">🔢 Quantity: {product.qty}</p>
-                            <p className="confirm-product-total">💵 Total: ${product.price * product.qty}</p>
+                            <p className="confirm-product-price">💰 Price: ₹{product.price}</p>
+                            {/* <p className="confirm-product-quantity">🔢 Quantity: {product.qty}</p> */}
+                            {/* <p className="confirm-product-total">💵 Total: ₹{product.price * product.qty}</p> */}
                         </div>
                     </div>
                 ))}
-                <p className="confirm-order-total">📦 Order Total: <strong>${price}</strong></p>
+                <p className="confirm-order-total">📦 Order Total: <strong> ₹{price}</strong></p>
             </div>
 
             <div className="confirm-shipping-details">

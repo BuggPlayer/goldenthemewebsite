@@ -44,14 +44,14 @@ export const get_product = createAsyncThunk(
 export const get_banners = createAsyncThunk(
   "product/get_banners",
   async (_, { fulfillWithValue, rejectWithValue, getState }) => {
-    const { token } = getState().auth;
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+    // const { token } = getState().auth;
+    // const config = {
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // };
     try {
-      const { data } = await axios.get(`${base_URL}/api/banners`, config);
+      const { data } = await axios.get(`${base_URL}/api/banners`);
       return fulfillWithValue(data);
     } catch (error) {
       console.log(error.response);

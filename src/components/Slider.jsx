@@ -6,7 +6,8 @@ import SlideCard from "./SliderCard/SlideCard"; // Importazione del componente S
 import { SliderData } from "../utils/products"; // Importazione dei dati per lo slider
 
 // Componente SliderHome che renderizza un carosello di SlideCard
-const SliderHome = () => {
+const SliderHome = ({banners}) => {
+  console.log("banners",banners)
   // Configurazione delle opzioni per lo slider
   const settings = {
     nav: false, // Disabilita i controlli di navigazione
@@ -22,13 +23,15 @@ const SliderHome = () => {
         {/* Slider con le impostazioni configurate */}
         <Slider {...settings}>
           {/* Mappatura dei dati dello slider per renderizzare le singole SlideCard */}
-          {SliderData.map((value, index) => {
+          {banners.map((value, index) => {
+            console.log("vlaue" , value)
             return (
               <SlideCard 
+              link={value.productId}
                 key={index} // Chiave univoca per ogni slide
-                title={value.title} // Titolo della slide
-                cover={value.cover} // Immagine di copertina
-                desc={value.desc} // Descrizione della slide
+                title="we have best collection in market" // Titolo della slide
+                cover={value.banner} // Immagine di copertina
+                desc="we have best collection in market" // Descrizione della slide
               />
             );
           })}

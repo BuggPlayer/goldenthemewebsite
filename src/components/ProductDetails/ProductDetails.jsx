@@ -42,7 +42,7 @@ const ProductDetails = ({ selectedProduct }) => {
               <span className="price">₹{selectedProduct?.price}</span>
               <span>category:{selectedProduct?.category}</span>
             </div>
-            <p>{selectedProduct?.shortDesc}</p>
+            <p>{selectedProduct?.description}</p>
             <input
               className="qty-input"
               type="number"

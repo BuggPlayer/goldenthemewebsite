@@ -1,21 +1,31 @@
 import { Col, Container, Row } from "react-bootstrap";
 import "./slidercard.css";
+import { Link } from "react-router-dom";
 
-const SlideCard = ({title,desc,cover}) => {
+const SlideCard = ({title,desc,cover,index,link}) => {
   return (
-      <Container className='box' >
-        <Row>
-          <Col md={6}>
-            <h1>{title}</h1>
-            <p>{desc}</p>
-            <button className='btn-primary'>Visit Collections</button>
-          </Col>
-          <Col md={6}>
-            <img src={cover} alt="#" />
-          </Col>
-        </Row>
+    <Container className='box py-5'>
+    <Row className='align-items-center'>
+        {/* Text Section */}
+        <Col md={6} className='text-start'>
+            <h1 className='fw-bold text--text-color'>{title}</h1>
+            <p className='text-muted'>{desc}</p>
+            <Link className='btn btn-primary  mt-3' to={`/shop/${link}`}>
+                Visit Collections
+            </Link>
+        </Col>
 
-    </Container>
+        {/* Image Section */}
+        <Col md={6} className='text-center'>
+            <img 
+                src={cover} 
+                alt="Product Cover" 
+                className='img-fluid rounded shadow-sm' 
+            />
+        </Col>
+    </Row>
+</Container>
+
   )
 }
 

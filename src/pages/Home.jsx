@@ -4,7 +4,7 @@ import Section from "../components/Section";
 import { products, discoutProducts } from "../utils/products";
 import SliderHome from "../components/Slider";
 import useWindowScrollToTop from "../hooks/useWindowScrollToTop";
-import { get_products } from "../store/reducer/homeReducer";
+import { get_banners, get_products } from "../store/reducer/homeReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { ClipLoader, PropagateLoader } from "react-spinners";
 
@@ -17,12 +17,15 @@ const Home = () => {
   // useWindowScrollToTop();
 
  
-    const {products, latest_product, topRated_product, discount_product ,loading, error} = useSelector(state => state.home)
+    const {products, banners,latest_product, topRated_product, discount_product ,loading, error} = useSelector(state => state.home)
+    console.log(
+"banner",banners
+    )
     useEffect(() => {
-
+      dispatch(get_banners())
         dispatch(get_products())
     }, [])
-
+   
 
   if (loading) {
     return (
@@ -48,22 +51,23 @@ const Home = () => {
     </div>)// Show error message if there's an error
   }
 
-console.log("products" , products)
+
   return (
     <Fragment>
-      <SliderHome />
+      <SliderHome  banners ={banners}/>
       <Wrapper />
+      {/* <Section
+        title="New Arrivals"
+        bgColor="black"
+        productItems={latest_product}
+      /> */}
       <Section
         title="Big Discount"
         bgColor="black"
         productItems={products}
       />
-      {/* <Section
-        title="New Arrivals"
-        bgColor="black"
-        productItems={newArrivalData}
-      />
-      <Section title="Best Sales" bgColor="black" productItems={bestSales} /> */}
+    
+      {/* <Section title="Best Sales" bgColor="black" productItems={topRated_product} /> */}
     </Fragment>
   );
 };
