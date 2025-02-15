@@ -47,15 +47,17 @@ export const get_orders = createAsyncThunk(
     { customerId, status },
     { rejectWithValue, fulfillWithValue, getState }
   ) => {
-    const { token } = getState().auth;
+    const userInfo = JSON.parse(localStorage.getItem("user-info"));
+
+    // const { token } = getState().auth;
     const config = {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${userInfo.token}`,
       },
     };
     try {
       const { data } = await axios.get(
-        `${base_URL}/api/home/customer/gat-orders/${customerId}/${status}`
+        `${base_URL}/api/home/customer/gat-orders/${customerId}/${status}`, config
       );
       return fulfillWithValue(data);
     } catch (error) {
@@ -67,10 +69,12 @@ export const get_orders = createAsyncThunk(
 export const get_order = createAsyncThunk(
   "order/get_order",
   async (orderId, { rejectWithValue, fulfillWithValue, getState }) => {
-    const { token } = getState().auth;
+    const userInfo = JSON.parse(localStorage.getItem("user-info"));
+
+    // const { token } = getState().auth;
     const config = {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${userInfo.token}`,
       },
     };
     try {

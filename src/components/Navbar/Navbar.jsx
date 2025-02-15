@@ -129,7 +129,7 @@ const NavBar = () => {
       <NavDropdown.Item as={Link} to="/cart">My Cart</NavDropdown.Item>
       <NavDropdown.Item as={Link} to="/orders">My Orders</NavDropdown.Item>
       <NavDropdown.Item as={Link} to="/profile">My Profile</NavDropdown.Item>
-      <NavDropdown.Item as={Link} to="/settings">Settings</NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="/dashboard">Dashboard</NavDropdown.Item>
       <NavDropdown.Divider />
       {isAuthenticated ? (
         <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>

@@ -1,5 +1,6 @@
 
 import  cartSlice  from './reducer/cartSlice'
+import  dashboardReducer  from './reducer/dashboardReducer'
 import homeReducer from './reducer/homeReducer'
 // import authReducer from './reducers/authReducer'
 // import cardReducer from './reducer/cardReducer'
@@ -12,7 +13,7 @@ const rootReducers = {
     // card: cardReducer,
     cart: cartSlice,
     order : orderReducer,
-    // dashboard : dashboardReducer,
+    dashboard : dashboardReducer
     // chat : chatReducer
 }
 export default rootReducers

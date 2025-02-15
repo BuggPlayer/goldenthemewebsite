@@ -14,6 +14,13 @@ import GoolgeLogin from "./components/GoogleWrapper/GoogleWrapper";
 import RefrshHandler from "./hooks/RefreshHandler";
 import OrderPage from "./pages/OrderPage";
 import OrderConfirmation from "./pages/ConfirmOrder";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import Order from "./components/dashboard/Order";
+// import Wishlist from "./components/dashboard/Wishlist";
+import Orders from "./components/dashboard/Orders";
+// import ChangePassword from "./components/dashboard/ChangePassword";
+import Index from "./components/dashboard/Index";
+// import Chat from "./components/dashboard/Chat";
 
 // Importazione lazy dei componenti delle pagine per il caricamento dinamico
 const Home = lazy(() => import("./pages/Home"));
@@ -73,6 +80,25 @@ const PrivateRoute = ({ element }) => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/order" element={<OrderPage />} />
           <Route path="/order-confirmation" element={<OrderConfirmation />} />
+
+          {/* <Route path='/dashboard' element={<ProtectUser />}> */}
+
+          <Route path='/dashboard' element={<Dashboard />}>
+            {/* <Route path='/index' element={<Index />} /> */}
+            {/* <Route path='my-orders' element={<Order />} /> */}
+            {/* <Route path='my-wishlist' element={<Wishlist />} /> */}
+            {/* <Route path='order/details/:orderId' element={<Orders />} /> */}
+            {/* <Route path='chage-password' element={<ChangePassword />} /> */}
+            {/* <Route path='chat' element={<Chat />} /> */}
+            {/* <Route path='chat/:sellerId' element={<Chat />} /> */}
+          </Route>
+          <Route path='/index' element={<Index />} />
+           <Route path='/dashboard/my-orders' element={<Orders />} />
+          <Route path='/dashboard/order/details/:orderId' element={<Order />} />
+
+
+          
+        {/* </Route> */}
 
 
           
