@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './order.css';
 import { useSelector, useDispatch } from "react-redux";
-import { place_order } from "../store/reducer/orderReducer";
+import { place_order, messageClear } from "../store/reducer/orderReducer";
 import { useNavigate } from "react-router-dom";
 
 const OrderPage = () => {
@@ -9,6 +9,9 @@ const OrderPage = () => {
   const cartList = useSelector((state) => state.cart.cartList);
   const userInfo = JSON.parse(localStorage.getItem("user-info"));
   const dispatch = useDispatch();
+
+  // Redux states for loading, success, and error
+  const { isLoading, errorMessage, successMessage } = useSelector((state) => state.order);
 
   const [address, setAddress] = useState({
     fullName: "",
@@ -18,6 +21,7 @@ const OrderPage = () => {
     zipCode: "",
     country: "",
   });
+
   const [paymentMethod, setPaymentMethod] = useState("COD");
   const [cardDetails, setCardDetails] = useState({
     cardNumber: "",
@@ -25,6 +29,13 @@ const OrderPage = () => {
     cvv: "",
   });
   const [upiId, setUpiId] = useState("");
+
+  // Clear messages after 5 seconds
+  useEffect(() => {
+    if (successMessage || errorMessage) {
+      setTimeout(() => dispatch(messageClear()), 5000);
+    }
+  }, [successMessage, errorMessage, dispatch]);
 
   const validateAddress = () => {
     return Object.values(address).every((field) => field.trim() !== "");
@@ -51,14 +62,14 @@ const OrderPage = () => {
       return;
     }
 
-    const totalPrice = cartList.reduce((total, item) => total + item.price * item.quantity, 0);
+    const totalPrice = cartList.reduce((total, item) => total + item.price * item.qty, 0);
     const orderDetails = {
       price: totalPrice,
       products: cartList.map((item) => ({
         productId: item._id,
         name: item.name,
         price: item.price,
-        quantity: item.quantity,
+        quantity: item.qty,
         image: item.images[0],
         sellerId: item.sellerId,
       })),
@@ -69,8 +80,9 @@ const OrderPage = () => {
       paymentMethod,
     };
 
-    dispatch(place_order(orderDetails));
-    navigate('/order-confirmation', { state: { orderDetails } });
+    dispatch(place_order(orderDetails)).then(() => {
+      navigate('/order-confirmation', { state: { orderDetails } });
+    });
   };
 
   const handleInputChange = (e) => {
@@ -148,7 +160,13 @@ const OrderPage = () => {
             )}
           </div>
 
-          <button onClick={handlePlaceOrder} className="place-order-btn">Place Order</button>
+          <button onClick={handlePlaceOrder} className="place-order-btn" disabled={isLoading}>
+            {isLoading ? "Placing Order..." : "Place Order"}
+          </button>
+
+          {/* Display error or success messages */}
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          {successMessage && <p className="success-message">{successMessage}</p>}
         </div>
       </div>
     </div>
