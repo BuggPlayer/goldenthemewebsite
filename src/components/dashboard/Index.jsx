@@ -114,8 +114,8 @@ const { totalOrder, pendingOrder, recentOrders, cancelledOrder } = useSelector(s
         <thead className='bg-gray-100 text-gray-700 text-sm font-semibold uppercase border-b border-gray-300'>
             <tr>
                 <th scope='col' className='px-6 py-3 text-left w-1/5'>Order ID</th>
-                <th scope='col' className='px-6 py-3 text-left w-1/5'>Price</th>
-                <th scope='col' className='px-6 py-3 text-left w-1/5'>Payment Status</th>
+                <th scope='col' className='px-6 py-3 text-left w-1/5'style={{padding:40}}>Price</th>
+                <th scope='col' className='px-6 py-3 text-left w-1/5' style={{padding:40}}>Payment Status</th>
                 <th scope='col' className='px-6 py-3 text-left w-1/5'>Order Status</th>
                 <th scope='col' className='px-6 py-3 text-center w-1/5'>Action</th>
             </tr>
@@ -126,16 +126,16 @@ const { totalOrder, pendingOrder, recentOrders, cancelledOrder } = useSelector(s
             {recentOrders.map((o, i) => (
                 <tr key={i} className='border-b odd:bg-gray-50 even:bg-white hover:bg-gray-100 transition'>
                     <td className='px-6 py-4 font-medium text-nowrap'>{o._id}</td>
-                    <td className='px-6 py-4 font-medium text-nowrap'>${o.price}</td>
-                    <td className={`px-6 py-4 font-medium ${o.payment_status === 'paid' ? 'text-green-600' : 'text-red-600'}`}>
+                    <td className='px-6 py-4 font-medium text-nowrap' style={{padding:40}}>₹{o.price}</td>
+                    <td className={`px-6 py-4 font-medium ${o.payment_status === 'paid' ? 'text-green-600' : 'text-red-600'}`}style={{padding:40}}>
                         {o.payment_status}
                     </td>
                     <td className='px-6 py-4 font-medium'>{o.delivery_status}</td>
-                    <td className='px-6 py-4 text-center'>
+                    <td className='px-6 py-4 text-center'style={{padding:40}}>
                         <Link 
                             to={`/dashboard/order/details/${o._id}`} 
                             className='bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-md hover:bg-green-200 transition'
-                        >
+                            style={{padding:40}}>
                             View
                         </Link>
                         {/* {o.payment_status !== 'paid' && (

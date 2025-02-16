@@ -32,7 +32,7 @@ const GoolgeLogin = (props) => {
                     const userObj = { _id,email, name, token, image };
                     localStorage.setItem('user-info', JSON.stringify(userObj));
     
-                    navigate('/'); // Navigate after setting user info
+                    navigate('/order'); // Navigate after setting user info
                 } else {
                     console.error("User information is missing from the response.");
                 }

@@ -10,8 +10,8 @@ const ProductDetails = ({ selectedProduct }) => {
   const dispatch = useDispatch();
 
   const [quantity, setQuantity] = useState(1);
-  const handleQuantityChange = (e) => {
-    setQuantity(Number(e.target.value));
+  const handleQuantityChange = (value) => {
+    setQuantity(value);
   };
   const handelAdd = (selectedProduct, quantity) => {
     // dispatch(addToCarr({ product: selectedProduct, num: quantity }));
@@ -43,13 +43,28 @@ const ProductDetails = ({ selectedProduct }) => {
               <span>category:{selectedProduct?.category}</span>
             </div>
             <p>{selectedProduct?.description}</p>
-            <input
+            {/* <input
               className="qty-input"
               type="number"
               placeholder="Qty"
               value={quantity}
               onChange={handleQuantityChange}
-            />
+            /> */}
+
+<input
+  className="qty-input"
+  style={{background:"white" , color:"black"}}
+  type="number"
+  placeholder="Qty"
+  value={quantity}
+  onChange={(e) => {
+    console.log("ee" , e.target.value)
+    const value = Math.max(1, parseInt(e.target.value) || 1);
+    handleQuantityChange(value);
+  }}
+  min="1"
+/>
+
             <button
               aria-label="Add"
               type="submit"

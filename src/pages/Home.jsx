@@ -62,11 +62,15 @@ const Home = () => {
         productItems={latest_product}
       /> */}
       <Section
+        title="New Arrivals"
+        bgColor="black"
+        productItems={products}
+      />
+      <Section
         title="Big Discount"
         bgColor="black"
         productItems={products}
       />
-    
       {/* <Section title="Best Sales" bgColor="black" productItems={topRated_product} /> */}
     </Fragment>
   );

@@ -71,8 +71,10 @@ const PrivateRoute = ({ element }) => {
         <Route path="/signup" element={<Signup />} />
 
           {/* Rotta per la homepage */}
-          <Route path='/' element={<PrivateRoute element={<Home/>}/>}/>
+          {/* <Route path='/' element={<PrivateRoute element={<Home/>}/>}/> */}
+
           {/* Rotta per la pagina del negozio */}
+           <Route path='/' element={<Home />}/>
           <Route path="/shop" element={<Shop />} />
           {/* Rotta per il dettaglio del prodotto */}
           <Route path="/shop/:id" element={<Product />} />
