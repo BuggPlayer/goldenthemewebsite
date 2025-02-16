@@ -108,7 +108,7 @@ const { totalOrder, pendingOrder, recentOrders, cancelledOrder } = useSelector(s
 
 <div className='p-4 mt-5 rounded-md  shadow-md'>
     <h2 className='text-lg font-semibold text-slate-600'>Recent Orders</h2>
- <div className='overflow-x-auto rounded-md shadow-md border border-gray-200'>
+ <div className='overflow-x-auto rounded-md shadow-md  border-gray-200'>
     <table className='w-full border-collapse text-sm text-gray-600'>
         {/* Table Header */}
         <thead className='bg-gray-100 text-gray-700 text-sm font-semibold uppercase border-b border-gray-300'>

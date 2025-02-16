@@ -32,7 +32,16 @@ const ProductCard = ({ productItem }) => {
   };
 
   return (
-    <Col md={6} lg={4} xl={3} sm={6} xs={12} className="product mtop">
+    <Col
+  md={6}
+  lg={4}
+  xl={3}
+  sm={6}
+  xs={12}
+  className="product mtop"
+
+>
+
     {/* Discount Badge */}
     {productItem.discount > 0 && (
       <span className="discount badge bg-btn-primary position-absolute top-0 start-0 m-2 p-2">
@@ -47,7 +56,7 @@ const ProductCard = ({ productItem }) => {
         src={productItem?.images[0]}
         alt={productItem.name}
         className="img-fluid rounded-3"
-        style={{ width: "100%", height: "auto", objectFit: "cover" }}
+        style={{ width: "100%", height: "auto",  }}
       />
     </div>
   
