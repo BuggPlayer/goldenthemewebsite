@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { place_order, messageClear } from "../store/reducer/orderReducer";
 import { useNavigate } from "react-router-dom";
 import useWindowScrollToTop from "../hooks/useWindowScrollToTop";
+import { toast } from "react-toastify";
 
 const OrderPage = () => {
   const navigate = useNavigate();
@@ -13,7 +14,6 @@ const OrderPage = () => {
 
   // Redux states for loading, success, and error
   const { isLoading, errorMessage, successMessage } = useSelector((state) => state.order);
-
   const [address, setAddress] = useState({
     fullName: "",
     streetAddress: "",
@@ -75,15 +75,24 @@ const OrderPage = () => {
         sellerId: item.sellerId,
       })),
       shipping_fee: 0,
-      shippingInfo: address,
+      shippingInfo: address.streetAddress,
       userId: userInfo?._id,
       userName: userInfo?.name,
       paymentMethod,
     };
 
-    dispatch(place_order(orderDetails)).then(() => {
-      navigate('/order-confirmation', { state: { orderDetails } });
-    });
+ 
+    dispatch(place_order(orderDetails))
+// Example Usage
+if (errorMessage) {
+  toast.error(errorMessage); // Show error toast
+}
+
+if (successMessage) {
+  toast.success(successMessage); // Show success toast
+  navigate('/order-confirmation', { state: { orderDetails } });
+}
+
   };
 
   const handleInputChange = (e) => {

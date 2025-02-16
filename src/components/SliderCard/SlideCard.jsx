@@ -11,7 +11,7 @@ const SlideCard = ({title,desc,cover,index,link}) => {
             <h1 className='fw-bold text--text-color'>{title}</h1>
             <p className='text-muted'>{desc}</p>
             <Link className='btn btn-primary  mt-3' to={`/shop/${link}`}>
-                Visit Collections
+                Visit 
             </Link>
         </Col>
 
