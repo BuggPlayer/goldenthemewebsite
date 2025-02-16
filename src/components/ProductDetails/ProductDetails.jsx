@@ -51,7 +51,7 @@ const ProductDetails = ({ selectedProduct }) => {
               onChange={handleQuantityChange}
             /> */}
 
-<input
+{/* <input
   className="qty-input"
   style={{background:"white" , color:"black"}}
   type="number"
@@ -63,7 +63,58 @@ const ProductDetails = ({ selectedProduct }) => {
     handleQuantityChange(value);
   }}
   min="1"
-/>
+/> */}
+<div className="quantity-control" style={{ display: "flex", alignItems: "center" }}>
+  {/* Decrease Button */}
+  <button
+    className="qty-button"
+    onClick={() => {
+      const newValue = Math.max(1, quantity - 1); // Ensure quantity doesn't go below 1
+      handleQuantityChange(newValue);
+    }}
+    style={{
+      // background: "#f0f0f0",
+      border: "1px solid #ccc",
+      padding: "5px 10px",
+      cursor: "pointer",
+    }}
+  >
+    -
+  </button>
+
+  {/* Quantity Display */}
+  <p
+    className="qty-value"
+    style={{
+      margin: "0 10px",
+      padding: "5px 10px",
+      border: "1px solid #ccc",
+      background: "white",
+      color: "black",
+      minWidth: "40px",
+      textAlign: "center",
+    }}
+  >
+    {quantity}
+  </p>
+
+  {/* Increase Button */}
+  <button
+    className="qty-button"
+    onClick={() => {
+      const newValue = quantity + 1; // Increase quantity by 1
+      handleQuantityChange(newValue);
+    }}
+    style={{
+      // background: "#f0f0f0",
+      border: "1px solid #ccc",
+      padding: "5px 10px",
+      cursor: "pointer",
+    }}
+  >
+    +
+  </button>
+</div>
 
             <button
               aria-label="Add"
