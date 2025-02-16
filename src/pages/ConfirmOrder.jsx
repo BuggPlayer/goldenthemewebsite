@@ -1,11 +1,12 @@
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import './OrderConfirmation.css';
+import useWindowScrollToTop from '../hooks/useWindowScrollToTop';
 
 const OrderConfirmation = () => {
     const location = useLocation();
     const orderDetails = location.state?.orderDetails;
-
+    useWindowScrollToTop();
     if (!orderDetails) {
         return (
             <div className="confirm-order-container">

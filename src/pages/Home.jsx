@@ -14,7 +14,7 @@ const Home = () => {
   //   (item) => item.category === "mobile" || item.category === "wireless"
   // );
   // const bestSales = products.filter((item) => item.category === "sofa");
-  // useWindowScrollToTop();
+  useWindowScrollToTop();
 
  
     const {products, banners,latest_product, topRated_product, discount_product ,loading, error} = useSelector(state => state.home)

@@ -76,9 +76,9 @@ const NavBar = () => {
               </Link>
             </Nav.Item>
             <Nav.Item>
-              {/* <Link className="navbar-link" to="/cart" onClick={() => setExpand(false)}>
+              <Link className="navbar-link" to="/cart" onClick={() => setExpand(false)}>
                 <span className="nav-link-label">Cart</span>
-              </Link> */}
+              </Link>
             </Nav.Item>
 
           
@@ -129,7 +129,7 @@ const NavBar = () => {
       <NavDropdown.Item as={Link} to="/index">Dashboard</NavDropdown.Item>
       <NavDropdown.Item as={Link} to="/dashboard/my-orders">My Orders</NavDropdown.Item>
       <NavDropdown.Item as={Link} to="/profile">My Wishlist</NavDropdown.Item>
-      <NavDropdown.Item as={Link} to="/profile">My chats</NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="/profile">My chat</NavDropdown.Item>
       {/* <NavDropdown.Item as={Link} to="/dashboard">Dashboard</NavDropdown.Item> */}
       <NavDropdown.Divider />
       {isAuthenticated ? (

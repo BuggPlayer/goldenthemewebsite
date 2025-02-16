@@ -7,7 +7,6 @@ import { SliderData } from "../utils/products"; // Importazione dei dati per lo 
 
 // Componente SliderHome che renderizza un carosello di SlideCard
 const SliderHome = ({banners}) => {
-  console.log("banners",banners)
   // Configurazione delle opzioni per lo slider
   const settings = {
     nav: false, // Disabilita i controlli di navigazione
@@ -24,7 +23,6 @@ const SliderHome = ({banners}) => {
         <Slider {...settings}>
           {/* Mappatura dei dati dello slider per renderizzare le singole SlideCard */}
           {banners.map((value, index) => {
-            console.log("vlaue" , value)
             return (
               <SlideCard 
               link={value.productId}

@@ -3,6 +3,7 @@ import './order.css';
 import { useSelector, useDispatch } from "react-redux";
 import { place_order, messageClear } from "../store/reducer/orderReducer";
 import { useNavigate } from "react-router-dom";
+import useWindowScrollToTop from "../hooks/useWindowScrollToTop";
 
 const OrderPage = () => {
   const navigate = useNavigate();
@@ -94,6 +95,7 @@ const OrderPage = () => {
     const { name, value } = e.target;
     setCardDetails((prev) => ({ ...prev, [name]: value }));
   };
+  useWindowScrollToTop();
 
   return (
     <div className="order-page-container">

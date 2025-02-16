@@ -7,12 +7,13 @@ import { BsChat, BsHeart } from "react-icons/bs";
 import { TfiLock } from "react-icons/tfi";
 import { BiLogInCircle } from "react-icons/bi";
 import { useDispatch } from "react-redux";
+import useWindowScrollToTop from "../../hooks/useWindowScrollToTop";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [filterShow, setFilterShow] = useState(false);
-
+  useWindowScrollToTop();
   const logout = async () => {
     // try {
     //     const { data } = await api.get('/customer/logout')
