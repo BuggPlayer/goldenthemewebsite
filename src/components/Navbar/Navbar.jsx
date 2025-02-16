@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const cartSlice = useSelector((state) => state.cart.cartList);
-  const [expand, setExpand] = useState(false);
+  const [expand, setExpand] = useState(false); // State to control navbar expansion
   const [isFixed, setIsFixed] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
@@ -28,7 +28,6 @@ const NavBar = () => {
     }
   }, []);
 
-
   const handleLogout = () => {
     localStorage.removeItem("user-info");
     setIsAuthenticated(false);
@@ -45,7 +44,13 @@ const NavBar = () => {
   }, []);
 
   return (
-    <Navbar fixed="top" expand="md" className={isFixed ? "navbar fixed" : "navbar"}>
+    <Navbar
+      fixed="top"
+      expand="md"
+      expanded={expand} // Controlled expanded state
+      onToggle={() => setExpand(!expand)} // Toggle expanded state
+      className={isFixed ? "navbar fixed" : "navbar"}
+    >
       <Container className="navbar-container">
         <Navbar.Brand as={Link} to="/">
           <ion-icon name="bag"></ion-icon>
@@ -55,7 +60,7 @@ const NavBar = () => {
         <div className="d-flex">
           <Navbar.Toggle
             aria-controls="basic-navbar-nav"
-            onClick={() => setExpand(!expand)}
+            onClick={() => setExpand(!expand)} // Toggle expanded state
           >
             <span></span>
             <span></span>
@@ -66,26 +71,41 @@ const NavBar = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="justify-content-end flex-grow-1 pe-3">
             <Nav.Item>
-              <Link className="navbar-link" to="/" onClick={() => setExpand(false)}>
+              <Link
+                className="navbar-link"
+                to="/"
+                onClick={() => setExpand(false)} // Close navbar on click
+              >
                 <span className="nav-link-label">Home</span>
               </Link>
             </Nav.Item>
             <Nav.Item>
-              <Link className="navbar-link" to="/shop" onClick={() => setExpand(false)}>
+              <Link
+                className="navbar-link"
+                to="/shop"
+                onClick={() => setExpand(false)} // Close navbar on click
+              >
                 <span className="nav-link-label">Shop</span>
               </Link>
             </Nav.Item>
             <Nav.Item>
-              <Link className="navbar-link" to="/cart" onClick={() => setExpand(false)}>
+              <Link
+                className="navbar-link"
+                to="/cart"
+                onClick={() => setExpand(false)} // Close navbar on click
+              >
                 <span className="nav-link-label">Cart</span>
               </Link>
             </Nav.Item>
 
-          
-
             {/* Cart Icon */}
             <Nav.Item className="expanded-cart">
-              <Link to="/cart" className="cart" data-num={cartSlice?.length}>
+              <Link
+                to="/cart"
+                className="cart"
+                data-num={cartSlice?.length}
+                onClick={() => setExpand(false)} // Close navbar on click
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -97,47 +117,81 @@ const NavBar = () => {
               </Link>
             </Nav.Item>
 
+            {/* Profile Dropdown */}
             <NavDropdown
-      title={
-        <span className="profile-icon">
-          {userInfo ? (
-            <img
-              src={userInfo.image}
-              alt="User Avatar"
-              className="nav-icon rounded-full w-8 h-8"
-            />
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="#FFD700"
-              className="nav-icon"
+              title={
+                <span className="profile-icon">
+                  {userInfo ? (
+                    <img
+                      src={userInfo.image}
+                      alt="User Avatar"
+                      className="nav-icon rounded-full w-8 h-8"
+                    />
+                  ) : (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="#FFD700"
+                      className="nav-icon"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  )}
+                  {userInfo && (
+                    <span className="ml-2" style={{ color: "white" }}>
+                      {userInfo.name || userInfo.email}
+                    </span>
+                  )}
+                </span>
+              }
+              id="basic-nav-dropdown"
+              align="end"
             >
-              <path
-                fillRule="evenodd"
-                d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
-                clipRule="evenodd"
-              />
-            </svg>
-          )}
-          {userInfo && <span className="ml-2" style={{ color:"white" }}>{userInfo.name || userInfo.email}</span>}
-        </span>
-      }
-      id="basic-nav-dropdown"
-      align="end"
-    >
-      <NavDropdown.Item as={Link} to="/index">Dashboard</NavDropdown.Item>
-      <NavDropdown.Item as={Link} to="/dashboard/my-orders">My Orders</NavDropdown.Item>
-      <NavDropdown.Item as={Link} to="/profile">My Wishlist</NavDropdown.Item>
-      <NavDropdown.Item as={Link} to="/profile">My chat</NavDropdown.Item>
-      {/* <NavDropdown.Item as={Link} to="/dashboard">Dashboard</NavDropdown.Item> */}
-      <NavDropdown.Divider />
-      {isAuthenticated ? (
-        <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
-      ) : (
-        <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
-      )}
-    </NavDropdown>
+              <NavDropdown.Item
+                as={Link}
+                to="/index"
+                onClick={() => setExpand(false)} // Close navbar on click
+              >
+                Dashboard
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                as={Link}
+                to="/dashboard/my-orders"
+                onClick={() => setExpand(false)} // Close navbar on click
+              >
+                My Orders
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                as={Link}
+                to="/profile"
+                onClick={() => setExpand(false)} // Close navbar on click
+              >
+                My Wishlist
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                as={Link}
+                to="/profile"
+                onClick={() => setExpand(false)} // Close navbar on click
+              >
+                My Chat
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              {isAuthenticated ? (
+                <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+              ) : (
+                <NavDropdown.Item
+                  as={Link}
+                  to="/login"
+                  onClick={() => setExpand(false)} // Close navbar on click
+                >
+                  Login
+                </NavDropdown.Item>
+              )}
+            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Container>
