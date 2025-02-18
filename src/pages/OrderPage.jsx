@@ -75,6 +75,7 @@ const OrderPage = () => {
         sellerId: item.sellerId,
       })),
       shipping_fee: 0,
+      sellerId: cartList[0].sellerId,
       shippingInfo: address.streetAddress,
       userId: userInfo?._id,
       userName: userInfo?.name,
