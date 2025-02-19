@@ -115,6 +115,7 @@ const Home = () => {
         bgColor="black"
         productItems={products}
       />
+           {/* <Wrapper /> */}
     </Fragment>
   );
 };

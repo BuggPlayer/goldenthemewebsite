@@ -1,12 +1,4 @@
-:root {
-  --primary-bg: #000;
-  --secondary-bg: #121212;
-  --text-color: #d2a34b;
-  --text-color-secondary: #fff;
-  --highlight-color: #d2a34b;
-  --border-color: #d2a34b;
-  --font-primary: "Lato", sans-serif;
-}
+
 
 .product-card {
   border-radius: 0.5rem;

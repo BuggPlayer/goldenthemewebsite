@@ -1,12 +1,4 @@
-:root {
-    --primary-bg: #000; /* Black background */
-    --secondary-bg: #121212; /* Dark gray for sections */
-    --text-color: #FFD700; /* Gold text */
-    --highlight-color: #DAA520; /* Darker gold for highlights */
-    --border-color: #FFD700; /* Gold border */
-    --font-primary: "Lato", sans-serif;
-  }
-  
+
   .search-container {
       position: relative;
       display: flex;

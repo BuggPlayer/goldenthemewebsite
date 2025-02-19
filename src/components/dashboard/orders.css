@@ -1,0 +1,94 @@
+
+  
+  body {
+    font-family: var(--font-primary);
+    background-color: var(--primary-bg);
+    color: var(--text-color-secondary);
+  }
+  
+  .orders-container {
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: var(--secondary-bg);
+  }
+  
+  .orders-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .orders-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--highlight-color);
+  }
+  
+  .order-status-filter {
+    outline: none;
+    padding: 5px 10px;
+    border: 1px solid var(--border-color);
+    background-color: var(--primary-bg);
+    color: var(--text-color-secondary);
+    border-radius: 6px;
+  }
+  
+  .orders-table-container {
+    overflow-x: auto;
+  }
+  
+  .orders-table {
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+  }
+  
+  .orders-table thead {
+    background-color: var(--highlight-color);
+    color: var(--primary-bg);
+    text-transform: uppercase;
+  }
+  
+  .orders-table th,
+  .orders-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .orders-table tbody tr:hover {
+    background-color: rgba(210, 163, 75, 0.1);
+  }
+  
+  .orders-action {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .order-link {
+    background-color: var(--highlight-color);
+    color: var(--primary-bg);
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .pay-now {
+    background-color: green;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .unpaid {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  
