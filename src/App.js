@@ -46,7 +46,7 @@ const PrivateRoute = ({ element }) => {
 }
   return (
     // Suspense visualizza il Loader finché i componenti lazy non vengono caricati
-    <Suspense fallback={<Loader />}>
+    <Suspense fallback={<>Loading....</>}>
       
       {/* Router per gestire la navigazione */}
       <Router>
