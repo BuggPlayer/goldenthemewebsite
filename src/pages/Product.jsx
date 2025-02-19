@@ -44,7 +44,7 @@ const Product = () => {
       {/* Banner con il nome del prodotto */}
       <Banner title={selectedProduct?.name} />
       {/* Dettagli del prodotto selezionato */}
-      <ProductDetails selectedProduct={selectedProduct} />
+      <ProductDetails  />
       {/* Recensioni del prodotto selezionato */}
       {/* <ProductReviews selectedProduct={selectedProduct} /> */}
       {/* Sezione per i prodotti correlati */}

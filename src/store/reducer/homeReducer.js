@@ -21,16 +21,16 @@ export const get_products = createAsyncThunk(
 export const get_product = createAsyncThunk(
   "product/get_product",
   async (slug, { fulfillWithValue, rejectWithValue, getState }) => {
-    const { token } = getState().auth;
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+    // const { token } = getState().auth;
+    // const config = {
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // };
     try {
       const { data } = await axios.get(
         `${base_URL}/api/home/get-product/${slug}`,
-        config
+        // config
       );
       return fulfillWithValue(data);
     } catch (error) {

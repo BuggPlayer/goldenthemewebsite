@@ -50,7 +50,7 @@ const PrivateRoute = ({ element }) => {
       
       {/* Router per gestire la navigazione */}
       <Router>
-      <RefrshHandler setIsAuthenticated={setIsAuthenticated} />
+      {/* <RefrshHandler setIsAuthenticated={setIsAuthenticated} /> */}
         {/* Contenitore delle notifiche di sistema */}
         <ToastContainer
           position="top-right" // Posiziona le notifiche in alto a destra
@@ -76,8 +76,9 @@ const PrivateRoute = ({ element }) => {
           {/* Rotta per la pagina del negozio */}
            <Route path='/' element={<Home />}/>
           <Route path="/shop" element={<Shop />} />
+          
           {/* Rotta per il dettaglio del prodotto */}
-          <Route path="/shop/:id" element={<Product />} />
+          <Route path="/shop/:slug" element={<Product />} />
           {/* Rotta per la pagina del carrello */}
           <Route path="/cart" element={<Cart />} />
           <Route path="/order" element={<OrderPage />} />

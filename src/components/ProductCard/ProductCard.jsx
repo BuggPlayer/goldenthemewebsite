@@ -12,7 +12,7 @@ const ProductCard = ({ productItem }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/shop/${productItem._id}`);
+    navigate(`shop/${productItem.slug}`);
   };
 
   useEffect(() => {
