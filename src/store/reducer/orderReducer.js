@@ -5,7 +5,7 @@ import { base_URL } from "../../utils/apiList";
 export const place_order = createAsyncThunk(
   "order/place_order",
   async (
-    { price, products, shipping_fee, shippingInfo, userId, navigate, items },
+    { price, products, shipping_fee, shippingInfo, userId, navigate, items ,paymentMethod},
     { rejectWithValue }
   ) => {
     try {
@@ -17,6 +17,7 @@ export const place_order = createAsyncThunk(
         userId,
         navigate,
         items,
+        paymentMethod
       });
       return true;
     } catch (error) {
