@@ -5,6 +5,7 @@ import { place_order, messageClear } from "../store/reducer/orderReducer";
 import { useNavigate } from "react-router-dom";
 import useWindowScrollToTop from "../hooks/useWindowScrollToTop";
 import { toast } from "react-toastify";
+import { Modal, Button } from "react-bootstrap";
 
 const OrderPage = () => {
   const navigate = useNavigate();
@@ -12,8 +13,9 @@ const OrderPage = () => {
   const userInfo = JSON.parse(localStorage.getItem("user-info"));
   const dispatch = useDispatch();
 
-  // Redux states for loading, success, and error
   const { isLoading, errorMessage, successMessage } = useSelector((state) => state.order);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  
   const [address, setAddress] = useState({
     fullName: "",
     streetAddress: "",
@@ -24,31 +26,25 @@ const OrderPage = () => {
   });
 
   const [paymentMethod, setPaymentMethod] = useState("COD");
-  const [cardDetails, setCardDetails] = useState({
-    cardNumber: "",
-    expiryDate: "",
-    cvv: "",
-  });
+  const [cardDetails, setCardDetails] = useState({ cardNumber: "", expiryDate: "", cvv: "" });
   const [upiId, setUpiId] = useState("");
 
-  // Clear messages after 5 seconds
   useEffect(() => {
-    if (successMessage || errorMessage) {
+    if (successMessage) {
+      toast.success(successMessage); // Show success toast
+      setShowConfirmationModal(true); // Show modal on success
+      setTimeout(() => dispatch(messageClear()), 5000);
+    }
+    if (errorMessage) {
+      toast.error(errorMessage);
       setTimeout(() => dispatch(messageClear()), 5000);
     }
   }, [successMessage, errorMessage, dispatch]);
 
-  const validateAddress = () => {
-    return Object.values(address).every((field) => field.trim() !== "");
-  };
-
+  const validateAddress = () => Object.values(address).every((field) => field.trim() !== "");
   const validatePayment = () => {
-    if (paymentMethod === "Card") {
-      return cardDetails.cardNumber && cardDetails.expiryDate && cardDetails.cvv;
-    }
-    if (paymentMethod === "UPI") {
-      return upiId.trim() !== "";
-    }
+    if (paymentMethod === "Card") return cardDetails.cardNumber && cardDetails.expiryDate && cardDetails.cvv;
+    if (paymentMethod === "UPI") return upiId.trim() !== "";
     return true;
   };
 
@@ -57,12 +53,10 @@ const OrderPage = () => {
       alert("Please fill in all address fields.");
       return;
     }
-
     if (!validatePayment()) {
       alert("Please enter valid payment details.");
       return;
     }
-
     const totalPrice = cartList.reduce((total, item) => total + item.price * item.qty, 0);
     const orderDetails = {
       price: totalPrice,
@@ -81,19 +75,7 @@ const OrderPage = () => {
       userName: userInfo?.name,
       paymentMethod,
     };
-
- 
-    dispatch(place_order(orderDetails))
-// Example Usage
-if (errorMessage) {
-  toast.error(errorMessage); // Show error toast
-}
-
-if (successMessage) {
-  toast.success(successMessage); // Show success toast
-  navigate('/order-confirmation', { state: { orderDetails } });
-}
-
+    dispatch(place_order(orderDetails));
   };
 
   const handleInputChange = (e) => {
@@ -175,12 +157,35 @@ if (successMessage) {
           <button onClick={handlePlaceOrder} className="place-order-btn" disabled={isLoading}>
             {isLoading ? "Placing Order..." : "Place Order"}
           </button>
-
-          {/* Display error or success messages */}
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
-          {successMessage && <p className="success-message">{successMessage}</p>}
         </div>
       </div>
+
+      {/* Confirmation Modal */}
+      <Modal show={showConfirmationModal} onHide={() => setShowConfirmationModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Order Placed Successfully!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Thank you for your order, {userInfo?.name}!</p>
+          <h5>Order Summary:</h5>
+          <ul>
+            {cartList.map((item, index) => (
+              <li key={index}>
+                <strong>{item.name}</strong> - ₹{item.price} x {item.qty}
+              </li>
+            ))}
+          </ul>
+          <p>Total Price: ₹{cartList.reduce((total, item) => total + item.price * item.qty, 0)}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={() => navigate("/index")}>
+            View Orders
+          </Button>
+          <Button variant="secondary" onClick={() => setShowConfirmationModal(false)}>
+            Continue Shopping
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
