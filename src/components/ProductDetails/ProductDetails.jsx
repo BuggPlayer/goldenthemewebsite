@@ -6,8 +6,8 @@ import "./product-details.css";
 import { addToCart } from "../../store/reducer/cartSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { get_product } from "../../store/reducer/homeReducer";
-import Carousel from 'react-multi-carousel'
-import 'react-multi-carousel/lib/styles.css'
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 // import { Swiper, SwiperSlide } from 'swiper/react'
 // import 'swiper/css'
 
@@ -15,174 +15,264 @@ const ProductDetails = () => {
   const navigate = useNavigate()
   const { slug } = useParams()
   const dispatch = useDispatch()
-  const { product, relatedProducts, moreProducts } = useSelector(state => state.home)
+  const { product } = useSelector(state => state.home)
   const [image, setImage] = useState('')
+  const [quantity, setQuantity] = useState(1);
+  const isLoggedIn = localStorage.getItem('user-info');
+
   const responsive = {
     superLargeDesktop: {
-        breakpoint: { max: 4000, min: 3000 },
-        items: 5
+      breakpoint: { max: 4000, min: 1536 },
+      items: 6,
+      slidesToSlide: 2
     },
     desktop: {
-        breakpoint: { max: 3000, min: 1024 },
-        items: 5
+      breakpoint: { max: 1536, min: 1024 },
+      items: 5
     },
     tablet: {
-        breakpoint: { max: 1024, min: 464 },
-        items: 4
-    },
-    mdtablet: {
-        breakpoint: { max: 991, min: 464 },
-        items: 4
+      breakpoint: { max: 1024, min: 768 },
+      items: 4
     },
     mobile: {
-        breakpoint: { max: 768, min: 0 },
-        items: 3
+      breakpoint: { max: 768, min: 480 },
+      items: 3
     },
-    smmobile: {
-        breakpoint: { max: 640, min: 0 },
-        items: 2
-    },
-    xsmobile: {
-        breakpoint: { max: 440, min: 0 },
-        items: 1
+    smallMobile: {
+      breakpoint: { max: 480, min: 0 },
+      items: 2
     }
-}
+  };
 
-  const isLoggedIn = localStorage.getItem('user-info'); // Assuming you have an auth slice
+  useEffect(() => {
+    dispatch(get_product(slug));
+    window.scrollTo(0, 0);
+  }, [slug, dispatch]);
 
-  const [quantity, setQuantity] = useState(1);
-  const [selectedImage, setSelectedImage] = useState(product?.images);
+  useEffect(() => {
+    if (product?.images?.length > 0) {
+      setImage(product.images[0]);
+    }
+  }, [product]);
 
   const handleQuantityChange = (value) => {
-    setQuantity(value);
+    const newQty = Math.max(1, Math.min(value, product?.stock || 1));
+    setQuantity(newQty);
   };
 
-  const handleAddToCart = (product, quantity) => {
-    dispatch(addToCart({ product, num: quantity }));
-    toast.success("Product has been added to cart!");
-    
-  };
-  useEffect(() => {
-    dispatch(get_product(slug))
-  }, [slug])
-  
-  const handleBuyNow = (product, quantity) => {
-    // dispatch(addToCart({ product, num: quantity }));
-    toast.success("Proceeding to checkout...");
-    if (!isLoggedIn) {
-      navigate("/login"); // Redirect to login page if not logged in
-    } else {
-      // dispatch(addToCart({ product, num: quantity }));
-      navigate("/cart"); // Redirect to order page if logged in
+  const handleAddToCart = () => {
+    if (product?.stock > 0) {
+      dispatch(addToCart({ product, num: quantity }));
+      toast.success("Product added to cart!");
     }
-    // Navigate to checkout page (adjust as needed)
-    // navigate("/checkout");
   };
 
-  const handleAddToWishlist = () => {
-    toast.info("Product added to wishlist!");
+  const handleBuyNow = () => {
+    if (!isLoggedIn) {
+      toast.info("Please login to continue");
+      navigate("/login");
+      return;
+    }
+    handleAddToCart();
+    navigate("/cart");
   };
 
-  const handleShare = () => {
-    navigator.share
-      ? navigator.share({
-          title: product.name,
-          text: "Check out this product!",
+  const handleShare = async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: product?.name,
+          text: product?.description,
           url: window.location.href,
-        })
-      : toast.info("Sharing is not supported in this browser.");
+        });
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        toast.success("Link copied to clipboard!");
+      }
+    } catch (error) {
+      console.error('Error sharing:', error);
+      toast.error("Failed to share");
+    }
   };
 
+  if (!product) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Loading product details...</p>
+      </div>
+    );
+  }
 
   return (
-    <section className="product-page">
+    <section className="product-details">
       <Container>
-        <Row className="justify-content-center">
+        <Row className="g-4">
           {/* Product Images */}
-          <Col md={6}>
-          
-           
-
-                      <div className='p-5 border'>
-                                <img style={{ width:"90%" }} src={image ? image : product.images?.[0]} alt="" />
-                            </div>
-                            <div className='py-3'>
-                                {
-                                    product.images && <Carousel
-                                        autoPlay={true}
-                                        infinite={true}
-                                        responsive={responsive}
-                                        transitionDuration={500}
-                                    >
-                                        {
-                                            product.images.map((img, i) => {
-
-                                                return (
-                                                    <div key={i} onClick={() => setImage(img)}>
-                                                        <img  style={{ height:100}} src={img} alt="" />
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </Carousel>
-                                }
-                            </div>
-            
+          <Col lg={6}>
+            <div className="product-images">
+              <div className="main-image-wrapper">
+                <div className="main-image-container">
+                  <img 
+                    src={image || product.images?.[0]} 
+                    alt={product.name}
+                    className="main-image"
+                    loading="lazy"
+                  />
+                </div>
+                {product.discount > 0 && (
+                  <div className="discount-badge">
+                    {product.discount}% OFF
+                  </div>
+                )}
+              </div>
+              
+              <div className="thumbnail-carousel">
+                {product.images && product.images.length > 0 ? (
+                  <Carousel
+                    responsive={responsive}
+                    infinite={true}
+                    autoPlay={false}
+                    autoPlaySpeed={3000}
+                    keyBoardControl={true}
+                    customTransition="transform 300ms ease-in-out"
+                    transitionDuration={300}
+                    containerClass="carousel-container"
+                    removeArrowOnDeviceType={["mobile", "smallMobile"]}
+                    dotListClass="custom-dot-list"
+                    itemClass="carousel-item"
+                  >
+                    {product.images.map((img, index) => (
+                      <div 
+                        key={index}
+                        className={`thumbnail-item ${img === image ? 'active' : ''}`}
+                        onClick={() => setImage(img)}
+                      >
+                        <img 
+                          src={img} 
+                          alt={`${product.name} view ${index + 1}`}
+                          loading="lazy"
+                        />
+                      </div>
+                    ))}
+                  </Carousel>
+                ) : (
+                  <div className="no-images">No additional images available</div>
+                )}
+              </div>
+            </div>
           </Col>
 
-          {/* Product Details */}
-          <Col md={6}>
-            <h2>{product?.name}</h2>
-            <div className="rate">
-              <div className="stars">
-                {[...Array(5)].map((_, index) => (
-                  <i key={index} className="fa fa-star"></i>
-                ))}
+          {/* Product Info */}
+          <Col lg={6}>
+            <div className="product-info">
+              <div className="product-header">
+                <h1 className="product-title">{product.name}</h1>
+                <div className="product-meta">
+                  <div className="rating">
+                    <div className="stars">
+                      {[...Array(5)].map((_, index) => (
+                        <i 
+                          key={index} 
+                          className={`fas fa-star ${index < Math.floor(product.rating) ? 'filled' : ''}`}
+                        ></i>
+                      ))}
+                    </div>
+                    <span className="rating-count">
+                      {product.rating} ({product.numReviews} reviews)
+                    </span>
+                  </div>
+                </div>
               </div>
-              <span>{product?.rating} ratings</span>
-            </div>
-            <div className="info">
-              <p className="price">₹{product?.price}</p>
-              <p>Category: {product?.category}</p>
-            </div>
-            <p>{product?.description}</p>
 
-            {/* Quantity Selector */}
-            <div className="quantity-control">
-              <button
-                className="qty-button"
-                onClick={() => handleQuantityChange(Math.max(1, quantity - 1))}
-              >
-                -
-              </button>
-              <p className="qty-value">{quantity}</p>
-              <button
-                className="qty-button"
-                onClick={() => handleQuantityChange(quantity + 1)}
-              >
-                +
-              </button>
-            </div>
+              <div className="product-details-info">
+                <div className="product-price">
+                  <h2>₹{product.price.toLocaleString()}</h2>
+                  {product.discount > 0 && (
+                    <div className="price-details">
+                      <span className="original-price">
+                        ₹{(product.price / (1 - product.discount / 100)).toFixed(2)}
+                      </span>
+                      <span className="discount-tag">{product.discount}% OFF</span>
+                    </div>
+                  )}
+                </div>
 
-            {/* Action Buttons */}
-            <button
-              className="add-to-cart-btn"
-              onClick={() => handleAddToCart(product, quantity)}
-            >
-              Add to Cart
-            </button>
-            <button
-              className="buy-now-btn"
-              onClick={() => handleBuyNow(product, quantity)}
-            >
-              Buy Now
-            </button>
-            <button className="wishlist-btn" onClick={handleAddToWishlist}>
-              <i className="fa fa-heart"></i> Add to Wishlist
-            </button>
-            <button className="share-btn" onClick={handleShare}>
-              <i className="fa fa-share-alt"></i> Share
-            </button>
+                <div className="product-meta-details">
+                  <div className="meta-item">
+                    <span className="meta-label">Category:</span>
+                    <span className="meta-value">{product.category}</span>
+                  </div>
+                  <div className="meta-item">
+                    <span className="meta-label">Brand:</span>
+                    <span className="meta-value">{product.brand}</span>
+                  </div>
+                  <div className="meta-item">
+                    <span className="meta-label">Availability:</span>
+                    <span className={`meta-value ${product.stock > 0 ? 'in-stock' : 'out-of-stock'}`}>
+                      {product.stock > 0 ? `In Stock (${product.stock})` : 'Out of Stock'}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="product-description">
+                  <h3>Description</h3>
+                  <p>{product.description}</p>
+                </div>
+
+                {product.stock > 0 && (
+                  <div className="product-actions">
+                    <div className="quantity-selector">
+                      <button 
+                        onClick={() => handleQuantityChange(quantity - 1)}
+                        disabled={quantity <= 1}
+                        aria-label="Decrease quantity"
+                      >
+                        <i className="fas fa-minus"></i>
+                      </button>
+                      <span>{quantity}</span>
+                      <button 
+                        onClick={() => handleQuantityChange(quantity + 1)}
+                        disabled={quantity >= product.stock}
+                        aria-label="Increase quantity"
+                      >
+                        <i className="fas fa-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                <div className="action-buttons">
+                  <button 
+                    className="add-to-cart"
+                    onClick={handleAddToCart}
+                    disabled={product.stock === 0}
+                  >
+                    <i className="fas fa-shopping-cart"></i>
+                    Add to Cart
+                  </button>
+                  <button 
+                    className="buy-now"
+                    onClick={handleBuyNow}
+                    disabled={product.stock === 0}
+                  >
+                    <i className="fas fa-bolt"></i>
+                    Buy Now
+                  </button>
+                </div>
+
+                <div className="additional-actions">
+                  <button 
+                    className="share-button" 
+                    onClick={handleShare}
+                    aria-label="Share product"
+                  >
+                    <i className="fas fa-share-alt"></i>
+                    Share
+                  </button>
+                </div>
+              </div>
+            </div>
           </Col>
         </Row>
       </Container>

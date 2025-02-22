@@ -5,19 +5,18 @@ import { place_order, messageClear } from "../store/reducer/orderReducer";
 import { useNavigate } from "react-router-dom";
 import useWindowScrollToTop from "../hooks/useWindowScrollToTop";
 import { toast } from "react-toastify";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Form } from "react-bootstrap";
 
 const OrderPage = () => {
   const navigate = useNavigate();
   const cartList = useSelector((state) => state.cart.cartList);
   const userInfo = JSON.parse(localStorage.getItem("user-info"));
   const dispatch = useDispatch();
-
   const { isLoading, errorMessage, successMessage } = useSelector((state) => state.order);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   
   const [address, setAddress] = useState({
-    fullName: "",
+    fullName: userInfo?.name || "",
     streetAddress: "",
     city: "",
     state: "",
@@ -30,33 +29,52 @@ const OrderPage = () => {
   const [upiId, setUpiId] = useState("");
 
   useEffect(() => {
+    if (!cartList.length) {
+      navigate('/cart');
+      toast.error("Your cart is empty!");
+    }
+  }, [cartList, navigate]);
+
+  useEffect(() => {
     if (successMessage) {
-      toast.success(successMessage); // Show success toast
-      setShowConfirmationModal(true); // Show modal on success
-      setTimeout(() => dispatch(messageClear()), 5000);
+      toast.success(successMessage);
+      setShowConfirmationModal(true);
+      setTimeout(() => dispatch(messageClear()), 3000);
     }
     if (errorMessage) {
       toast.error(errorMessage);
-      setTimeout(() => dispatch(messageClear()), 5000);
+      setTimeout(() => dispatch(messageClear()), 3000);
     }
   }, [successMessage, errorMessage, dispatch]);
 
-  const validateAddress = () => Object.values(address).every((field) => field.trim() !== "");
+  const validateAddress = () => {
+    const requiredFields = ['fullName', 'streetAddress', 'city', 'state', 'zipCode', 'country'];
+    const emptyFields = requiredFields.filter(field => !address[field].trim());
+    
+    if (emptyFields.length) {
+      toast.error(`Please fill in: ${emptyFields.join(', ')}`);
+      return false;
+    }
+    return true;
+  };
+
   const validatePayment = () => {
-    if (paymentMethod === "Card") return cardDetails.cardNumber && cardDetails.expiryDate && cardDetails.cvv;
-    if (paymentMethod === "UPI") return upiId.trim() !== "";
+    if (paymentMethod === "Card") {
+      if (!cardDetails.cardNumber || !cardDetails.expiryDate || !cardDetails.cvv) {
+        toast.error("Please fill in all card details");
+        return false;
+      }
+    }
+    if (paymentMethod === "UPI" && !upiId) {
+      toast.error("Please enter UPI ID");
+      return false;
+    }
     return true;
   };
 
   const handlePlaceOrder = () => {
-    if (!validateAddress()) {
-      alert("Please fill in all address fields.");
-      return;
-    }
-    if (!validatePayment()) {
-      alert("Please enter valid payment details.");
-      return;
-    }
+    if (!validateAddress() || !validatePayment()) return;
+
     const totalPrice = cartList.reduce((total, item) => total + item.price * item.qty, 0);
     const orderDetails = {
       price: totalPrice,
@@ -70,9 +88,9 @@ const OrderPage = () => {
       })),
       shipping_fee: 0,
       sellerId: cartList[0].sellerId,
-      shippingInfo: address.streetAddress,
+      shippingInfo: `${address.streetAddress}, ${address.city}, ${address.state}, ${address.zipCode}, ${address.country}`,
       userId: userInfo?._id,
-      userName: userInfo?.name,
+      userName: address.fullName,
       paymentMethod,
     };
     dispatch(place_order(orderDetails));
@@ -80,108 +98,171 @@ const OrderPage = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setAddress((prev) => ({ ...prev, [name]: value }));
+    setAddress(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleCardChange = (e) => {
-    const { name, value } = e.target;
-    setCardDetails((prev) => ({ ...prev, [name]: value }));
-  };
   useWindowScrollToTop();
 
+  const totalAmount = cartList.reduce((total, item) => total + item.price * item.qty, 0);
+
   return (
-    <div className="order-page-container">
-      <div className="order-left">
-        <h2 className="order-summary-heading">Order Summary</h2>
-        {cartList?.length === 0 ? (
-          <h1 className="no-items product">Your order is empty</h1>
-        ) : (
-          cartList.map((item, index) => (
-            <div className="order-summary" key={index}>
-              <div className="order-product-details">
-                <img src={item.images[0]} alt={item.name} className="order-product-image" />
-                <div className="order-product-info">
-                  <h3 className="order-product-name">
-                    {item.name.length > 20 ? `${item.name.slice(0, 20)}...` : item.name}
-                  </h3>
-                  <p className="order-product-price">Price: ₹{item.price}</p>
-                  <p className="order-product-quantity">Quantity: {item.qty}</p>
-                  <p className="order-product-total">Total: ₹{item.price * item.qty}</p>
+    <div className="order-page">
+      <div className="order-container">
+        <div className="order-content">
+          {/* Order Summary Section */}
+          <section className="order-summary-section">
+            <h2>Order Summary</h2>
+            <div className="cart-items">
+              {cartList.map((item, index) => (
+                <div className="cart-item" key={index}>
+                  <div className="item-image">
+                    <img src={item.images[0]} alt={item.name} />
+                  </div>
+                  <div className="item-details">
+                    <h3>{item.name}</h3>
+                    <p className="item-price">₹{item.price.toLocaleString()}</p>
+                    <p className="item-quantity">Quantity: {item.qty}</p>
+                    <p className="item-total">
+                      Total: ₹{(item.price * item.qty).toLocaleString()}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
-          ))
-        )}
-      </div>
+            <div className="order-total">
+              <h3>Total Amount: ₹{totalAmount.toLocaleString()}</h3>
+            </div>
+          </section>
 
-      <div className="order-right">
-        <div className="order-form">
-          <h3>Delivery Address</h3>
-          {Object.keys(address).map((key) => (
-            <input
-              key={key}
-              type="text"
-              name={key}
-              placeholder={key.replace(/([A-Z])/g, " $1").trim()}
-              value={address[key]}
-              onChange={handleInputChange}
-            />
-          ))}
+          {/* Shipping Information Section */}
+          <section className="shipping-section">
+            <h2>Shipping Information</h2>
+            <Form className="shipping-form">
+              {Object.entries(address).map(([key, value]) => (
+                <Form.Group key={key} className="form-group">
+                  <Form.Label>{key.replace(/([A-Z])/g, ' $1').trim()}</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name={key}
+                    value={value}
+                    onChange={handleInputChange}
+                    placeholder={`Enter ${key.replace(/([A-Z])/g, ' $1').toLowerCase()}`}
+                  />
+                </Form.Group>
+              ))}
+            </Form>
+          </section>
 
-          <h3>Payment Method</h3>
-          <div className="payment-options">
-            <label>
-              <input type="radio" name="payment" value="COD" checked={paymentMethod === "COD"} onChange={() => setPaymentMethod("COD")} />
-              Cash on Delivery (COD)
-            </label>
-            <label>
-              <input type="radio" name="payment" value="Card" checked={paymentMethod === "Card"} onChange={() => setPaymentMethod("Card")} />
-              Credit/Debit Card
-            </label>
-            {paymentMethod === "Card" && (
-              <div className="card-details">
-                <input type="text" name="cardNumber" placeholder="Card Number" value={cardDetails.cardNumber} onChange={handleCardChange} />
-                <input type="text" name="expiryDate" placeholder="MM/YY" value={cardDetails.expiryDate} onChange={handleCardChange} />
-                <input type="text" name="cvv" placeholder="CVV" value={cardDetails.cvv} onChange={handleCardChange} />
-              </div>
-            )}
-            <label>
-              <input type="radio" name="payment" value="UPI" checked={paymentMethod === "UPI"} onChange={() => setPaymentMethod("UPI")} />
-              UPI
-            </label>
-            {paymentMethod === "UPI" && (
-              <input type="text" placeholder="UPI ID" value={upiId} onChange={(e) => setUpiId(e.target.value)} />
-            )}
-          </div>
+          {/* Payment Section */}
+          <section className="payment-section">
+            <h2>Payment Method</h2>
+            <div className="payment-options">
+              <Form.Check
+                type="radio"
+                id="cod"
+                label="Cash on Delivery (COD)"
+                checked={paymentMethod === "COD"}
+                onChange={() => setPaymentMethod("COD")}
+                className="payment-option"
+              />
+              <Form.Check
+                type="radio"
+                id="card"
+                label="Credit/Debit Card"
+                checked={paymentMethod === "Card"}
+                onChange={() => setPaymentMethod("Card")}
+                className="payment-option"
+              />
+              {paymentMethod === "Card" && (
+                <div className="card-details">
+                  <Form.Control
+                    type="text"
+                    placeholder="Card Number"
+                    value={cardDetails.cardNumber}
+                    onChange={(e) => setCardDetails({...cardDetails, cardNumber: e.target.value})}
+                  />
+                  <div className="card-security">
+                    <Form.Control
+                      type="text"
+                      placeholder="MM/YY"
+                      value={cardDetails.expiryDate}
+                      onChange={(e) => setCardDetails({...cardDetails, expiryDate: e.target.value})}
+                    />
+                    <Form.Control
+                      type="text"
+                      placeholder="CVV"
+                      value={cardDetails.cvv}
+                      onChange={(e) => setCardDetails({...cardDetails, cvv: e.target.value})}
+                    />
+                  </div>
+                </div>
+              )}
+              <Form.Check
+                type="radio"
+                id="upi"
+                label="UPI"
+                checked={paymentMethod === "UPI"}
+                onChange={() => setPaymentMethod("UPI")}
+                className="payment-option"
+              />
+              {paymentMethod === "UPI" && (
+                <Form.Control
+                  type="text"
+                  placeholder="Enter UPI ID"
+                  value={upiId}
+                  onChange={(e) => setUpiId(e.target.value)}
+                  className="upi-input"
+                />
+              )}
+            </div>
+          </section>
 
-          <button onClick={handlePlaceOrder} className="place-order-btn" disabled={isLoading}>
-            {isLoading ? "Placing Order..." : "Place Order"}
+          <button 
+            className="place-order-button"
+            onClick={handlePlaceOrder}
+            disabled={isLoading}
+          >
+            {isLoading ? "Processing..." : "Place Order"}
           </button>
         </div>
       </div>
 
-      {/* Confirmation Modal */}
-      <Modal show={showConfirmationModal} onHide={() => setShowConfirmationModal(false)} centered>
+      {/* Order Confirmation Modal */}
+      <Modal 
+        show={showConfirmationModal} 
+        onHide={() => setShowConfirmationModal(false)}
+        centered
+        className="order-confirmation-modal"
+      >
         <Modal.Header closeButton>
           <Modal.Title>Order Placed Successfully!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Thank you for your order, {userInfo?.name}!</p>
-          <h5>Order Summary:</h5>
-          <ul>
-            {cartList.map((item, index) => (
-              <li key={index}>
-                <strong>{item.name}</strong> - ₹{item.price} x {item.qty}
-              </li>
-            ))}
-          </ul>
-          <p>Total Price: ₹{cartList.reduce((total, item) => total + item.price * item.qty, 0)}</p>
+          <div className="confirmation-content">
+            <i className="fas fa-check-circle success-icon"></i>
+            <h4>Thank you for your order, {userInfo?.name}!</h4>
+            <div className="order-details">
+              <h5>Order Summary:</h5>
+              <ul>
+                {cartList.map((item, index) => (
+                  <li key={index}>
+                    <span>{item.name}</span>
+                    <span>₹{item.price.toLocaleString()} × {item.qty}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="total-amount">
+                <strong>Total:</strong>
+                <strong>₹{totalAmount.toLocaleString()}</strong>
+              </div>
+            </div>
+          </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={() => navigate("/index")}>
+          <Button variant="primary" onClick={() => navigate("/orders")}>
             View Orders
           </Button>
-          <Button variant="secondary" onClick={() => setShowConfirmationModal(false)}>
+          <Button variant="secondary" onClick={() => navigate("/")}>
             Continue Shopping
           </Button>
         </Modal.Footer>
